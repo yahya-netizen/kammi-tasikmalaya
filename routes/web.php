@@ -10,7 +10,7 @@ use App\Http\Controllers\IsuDaerahController;
 use App\Http\Controllers\PublikasiController;
 use App\Http\Controllers\KaderisasiController;
 use App\Http\Controllers\KomisariatController;
-
+use App\Http\Controllers\BkmController;
 // -----------------------------------------------
 // HALAMAN PUBLIK — tidak perlu login
 // -----------------------------------------------
@@ -28,6 +28,9 @@ Route::post('/kaderisasi/{daurahMarhalah}/daftar', [KaderisasiController::class,
 
 Route::get('/komisariat', [KomisariatController::class, 'index'])->name('komisariat.index');
 Route::get('/komisariat/{komisariat}', [KomisariatController::class, 'show'])->name('komisariat.show');
+
+Route::get('/bkm', [BkmController::class, 'index'])->name('bkm.index');
+Route::post('/bkm/daftar', [BkmController::class, 'daftar'])->name('bkm.daftar');
 // -----------------------------------------------
 // AUTH ROUTES (bawaan Laravel)
 // -----------------------------------------------
