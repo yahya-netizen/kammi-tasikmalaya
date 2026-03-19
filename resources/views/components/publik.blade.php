@@ -25,39 +25,40 @@
         html { scroll-behavior: smooth; }
         body { font-family: 'DM Sans', sans-serif; background: var(--krem); color: var(--teks); overflow-x: hidden; }
 
-        /* ===== PAYUNG GEULIS SVG ===== */
         .payung-deco { position: absolute; pointer-events: none; }
         .payung-deco.besar  { width: 220px; opacity: 0.08; }
         .payung-deco.sedang { width: 140px; opacity: 0.10; }
         .payung-deco.kecil  { width:  80px; opacity: 0.14; }
 
-        /* ===== NAVBAR PUBLIK ===== */
+        /* NAVBAR */
         .nav-publik {
             position: fixed; top: 0; left: 0; right: 0; z-index: 200;
             height: 66px; display: flex; align-items: center; justify-content: space-between;
-            padding: 0 2.5rem;
+            padding: 0 2rem;
             background: rgba(92,15,15,0.97);
             backdrop-filter: blur(14px);
             border-bottom: 1px solid rgba(201,168,76,0.18);
             transition: box-shadow 0.3s;
         }
         .nav-publik.scrolled { box-shadow: 0 4px 28px rgba(0,0,0,0.35); }
-        .nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+        .nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; flex-shrink: 0; }
         .logo-badge { width:38px; height:38px; background:var(--emas); border-radius:8px; display:flex; align-items:center; justify-content:center; overflow:hidden; flex-shrink:0; }
         .nav-brand-top { font-size:14px; font-weight:600; color:white; letter-spacing:.04em; line-height:1.2; }
         .nav-brand-btm { font-size:10.5px; color:rgba(255,255,255,.5); }
-        .nav-menu { display:flex; align-items:center; gap:4px; }
-        .nav-menu a { color:rgba(255,255,255,.7); text-decoration:none; font-size:13.5px; font-weight:500; padding:7px 14px; border-radius:6px; transition:all .2s; }
+
+        .nav-menu { display:flex; align-items:center; gap:2px; }
+        .nav-menu a { color:rgba(255,255,255,.7); text-decoration:none; font-size:13px; font-weight:500; padding:6px 11px; border-radius:6px; transition:all .2s; white-space:nowrap; }
         .nav-menu a:hover, .nav-menu a.aktif { color:white; background:rgba(255,255,255,.1); }
-        .nav-menu .btn-masuk { background:var(--emas); color:#2c1810 !important; font-weight:600; }
+        .nav-menu .btn-masuk { background:var(--emas); color:#2c1810 !important; font-weight:600; margin-left:4px; }
         .nav-menu .btn-masuk:hover { background:#b8943d !important; }
-        .nav-toggle { display:none; flex-direction:column; gap:5px; cursor:pointer; padding:6px; }
+
+        .nav-toggle { display:none; flex-direction:column; gap:5px; cursor:pointer; padding:6px; flex-shrink:0; }
         .nav-toggle span { display:block; width:22px; height:2px; background:white; border-radius:2px; }
 
-        /* ===== KONTEN ===== */
+        /* KONTEN */
         .page-wrap { padding-top: 66px; }
 
-        /* ===== PAGE HEADER ===== */
+        /* PAGE HEADER */
         .page-header {
             background: var(--merah-tua); padding: 52px 2.5rem 44px;
             position: relative; overflow: hidden;
@@ -74,43 +75,41 @@
         .page-header h1 { font-family:'Playfair Display',serif; font-size:clamp(1.6rem,2.5vw,2.2rem); color:#fff9f0; }
         .page-header p { margin-top:8px; font-size:14px; color:rgba(255,249,240,.6); }
 
-        /* ===== FOOTER ===== */
+        /* FOOTER */
         .footer-publik { background: #3a0a0a; color:rgba(255,249,240,.55); padding:52px 2.5rem 28px; }
         .footer-inner  { max-width:1200px; margin:0 auto; }
         .footer-top { display:grid; grid-template-columns:1.5fr 1fr 1fr; gap:48px; padding-bottom:36px; border-bottom:1px solid rgba(201,168,76,.12); margin-bottom:24px; }
         .footer-brand-name { font-family:'Playfair Display',serif; font-size:1.1rem; color:#fff9f0; margin:12px 0 8px; }
         .footer-brand-desc { font-size:13px; line-height:1.75; color:rgba(255,249,240,.4); }
-        .footer-col-title  { font-size:11px; font-weight:600; letter-spacing:.09em; text-transform:uppercase; color:rgba(255,249,240,.3); margin-bottom:14px; }
+        .footer-col-title { font-size:11px; font-weight:600; letter-spacing:.09em; text-transform:uppercase; color:rgba(255,249,240,.3); margin-bottom:14px; }
         .footer-col ul { list-style:none; }
         .footer-col ul li+li { margin-top:8px; }
         .footer-col ul a { color:rgba(255,249,240,.5); text-decoration:none; font-size:13.5px; transition:color .2s; }
         .footer-col ul a:hover { color:#fff9f0; }
         .footer-bottom { display:flex; justify-content:space-between; align-items:center; font-size:12px; color:rgba(255,249,240,.25); }
 
-        /* ===== UTILITIES ===== */
+        /* UTILITIES */
         .fade-up { opacity:0; transform:translateY(26px); transition:opacity .65s ease, transform .65s ease; }
         .fade-up.visible { opacity:1; transform:translateY(0); }
         .delay-1 { transition-delay:.1s; }
         .delay-2 { transition-delay:.2s; }
         .delay-3 { transition-delay:.32s; }
-        .btn-emas {
-            display:inline-flex; align-items:center; gap:8px;
-            background:var(--emas); color:#2c1810; text-decoration:none;
-            font-size:14px; font-weight:600; padding:11px 24px; border-radius:8px; transition:all .2s;
-        }
+        .btn-emas { display:inline-flex; align-items:center; gap:8px; background:var(--emas); color:#2c1810; text-decoration:none; font-size:14px; font-weight:600; padding:11px 24px; border-radius:8px; transition:all .2s; }
         .btn-emas:hover { background:#b8943d; transform:translateY(-1px); }
-        .btn-merah {
-            display:inline-flex; align-items:center; gap:8px;
-            background:var(--merah); color:white; text-decoration:none;
-            font-size:14px; font-weight:600; padding:11px 24px; border-radius:8px; transition:all .2s;
-            box-shadow:0 4px 14px rgba(139,26,26,.3);
-        }
+        .btn-merah { display:inline-flex; align-items:center; gap:8px; background:var(--merah); color:white; text-decoration:none; font-size:14px; font-weight:600; padding:11px 24px; border-radius:8px; transition:all .2s; box-shadow:0 4px 14px rgba(139,26,26,.3); }
         .btn-merah:hover { background:var(--merah-tua); transform:translateY(-1px); }
 
+        @media(max-width:1024px){
+            .nav-menu a { font-size:12px; padding:6px 9px; }
+        }
         @media(max-width:900px){
             .footer-top { grid-template-columns:1fr; gap:24px; }
             .footer-bottom { flex-direction:column; gap:6px; text-align:center; }
-            .nav-menu { display:none; position:absolute; top:66px; left:0; right:0; background:var(--merah-tua); flex-direction:column; padding:14px; border-top:1px solid rgba(201,168,76,.15); gap:4px; }
+            .nav-menu {
+                display:none; position:absolute; top:66px; left:0; right:0;
+                background:var(--merah-tua); flex-direction:column;
+                padding:14px; border-top:1px solid rgba(201,168,76,.15); gap:4px;
+            }
             .nav-menu.open { display:flex; }
             .nav-toggle { display:flex; }
         }
@@ -119,7 +118,7 @@
 </head>
 <body>
 
-{{-- SVG Payung Geulis (reusable) --}}
+{{-- SVG Payung Geulis --}}
 <svg style="display:none" xmlns="http://www.w3.org/2000/svg">
     <defs>
         <symbol id="payung-geulis" viewBox="0 0 120 150">
@@ -151,8 +150,8 @@
     </defs>
 </svg>
 
-{{-- NAVBAR PUBLIK --}}
-<nav class="nav-publik" id="navPubik">
+{{-- ===== NAVBAR ===== --}}
+<nav class="nav-publik" id="navPublik">
     <a href="{{ url('/') }}" class="nav-logo">
         <div class="logo-badge">
             <svg viewBox="0 0 120 150" width="30" height="38"><use href="#payung-geulis"/></svg>
@@ -162,28 +161,29 @@
             <div class="nav-brand-btm">Daerah Tasikmalaya</div>
         </div>
     </a>
+
     <div class="nav-menu" id="navMenu">
-        <a href="{{ url('/') }}" class="{{ request()->is('/') ? 'aktif' : '' }}">Beranda</a>
-        <a href="{{ route('publikasi.index') }}" class="{{ request()->is('publikasi*') ? 'aktif' : '' }}">Berita</a>
-        <a href="{{ route('isu-daerah.index') }}" class="{{ request()->is('isu-daerah*') ? 'aktif' : '' }}">Isu Daerah</a>
-        <a href="#">Kaderisasi</a>
-        <a href="#">Tentang</a>
-        @auth
-            <a href="{{ url('/admin') }}" class="btn-masuk">Dashboard</a>
-        @else
-            <a href="{{ route('login') }}" class="btn-masuk">Masuk Admin</a>
-        @endauth
+        <a href="{{ url('/') }}"                    class="{{ request()->is('/') ? 'aktif' : '' }}">Beranda</a>
+        <a href="{{ route('publikasi.index') }}"     class="{{ request()->is('publikasi*') ? 'aktif' : '' }}">Berita</a>
+        <a href="{{ route('kaderisasi.index') }}"    class="{{ request()->is('kaderisasi*') ? 'aktif' : '' }}">Kaderisasi</a>
+        <a href="{{ route('isu-daerah.index') }}"    class="{{ request()->is('isu-daerah*') ? 'aktif' : '' }}">Isu Daerah</a>
+        <a href="{{ route('komisariat.index') }}"    class="{{ request()->is('komisariat*') ? 'aktif' : '' }}">Komisariat</a>
+        <a href="{{ route('agenda.index') }}"        class="{{ request()->is('agenda*') ? 'aktif' : '' }}">Agenda</a>
+        <a href="{{ route('bkm.index') }}"           class="{{ request()->is('bkm*') ? 'aktif' : '' }}">BKM</a>
+        <a href="{{ route('kontak.index') }}"        class="{{ request()->is('kontak*') ? 'aktif' : '' }}">Kontak</a>
     </div>
+
     <div class="nav-toggle" onclick="document.getElementById('navMenu').classList.toggle('open')">
         <span></span><span></span><span></span>
     </div>
 </nav>
 
+{{-- ===== KONTEN ===== --}}
 <div class="page-wrap">
     {{ $slot }}
 </div>
 
-{{-- FOOTER --}}
+{{-- ===== FOOTER ===== --}}
 <footer class="footer-publik">
     <div class="footer-inner">
         <div class="footer-top">
@@ -198,18 +198,18 @@
                     <li><a href="{{ url('/') }}">Beranda</a></li>
                     <li><a href="{{ route('publikasi.index') }}">Berita & Publikasi</a></li>
                     <li><a href="{{ route('isu-daerah.index') }}">Isu Daerah</a></li>
-                    <li><a href="#">Daurah Marhalah</a></li>
-                    <li><a href="#">Komisariat</a></li>
+                    <li><a href="{{ route('kaderisasi.index') }}">Daurah Marhalah</a></li>
+                    <li><a href="{{ route('komisariat.index') }}">Komisariat</a></li>
+                    <li><a href="{{ route('agenda.index') }}">Agenda</a></li>
                 </ul>
             </div>
             <div class="footer-col">
                 <div class="footer-col-title">Tentang</div>
                 <ul>
-                    <li><a href="#">Visi & Misi</a></li>
-                    <li><a href="#">Struktur Pengurus</a></li>
-                    <li><a href="#">BKM (Biro Kemuslimahan)</a></li>
-                    <li><a href="#">Kontak & Lokasi</a></li>
-                    <li><a href="{{ route('login') }}">Admin</a></li>
+                    <li><a href="{{ route('bkm.index') }}">BKM Kemuslimahan</a></li>
+                    <li><a href="{{ route('kontak.index') }}">Kontak Kami</a></li>
+                    <li><a href="{{ route('kontak.index') }}">Cara Bergabung</a></li>
+                    <li><a href="{{ route('login') }}">Login Admin</a></li>
                 </ul>
             </div>
         </div>
@@ -221,7 +221,7 @@
 </footer>
 
 <script>
-const nav = document.getElementById('navPubik');
+const nav = document.getElementById('navPublik');
 window.addEventListener('scroll', () => nav.classList.toggle('scrolled', scrollY > 40));
 const obs = new IntersectionObserver(entries => {
     entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
