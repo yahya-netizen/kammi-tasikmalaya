@@ -13,29 +13,23 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <style>
         :root {
-            --merah: #8b1a1a;
-            --merah-tua: #5c0f0f;
-            --merah-terang: #c0392b;
-            --merah-muda: #fdf2f2;
-            --emas: #c9a84c;
-            --krem: #faf7f2;
-            --teks: #2c1810;
+            --merah: #8b1a1a; --merah-tua: #5c0f0f; --merah-terang: #c0392b;
+            --merah-muda: #fdf2f2; --emas: #c9a84c; --krem: #faf7f2; --teks: #2c1810;
         }
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
         html { scroll-behavior: smooth; }
         body { font-family: 'DM Sans', sans-serif; background: var(--krem); color: var(--teks); overflow-x: hidden; }
-
         .payung-deco { position: absolute; pointer-events: none; }
         .payung-deco.besar  { width: 220px; opacity: 0.08; }
         .payung-deco.sedang { width: 140px; opacity: 0.10; }
         .payung-deco.kecil  { width:  80px; opacity: 0.14; }
 
-        /* NAVBAR */
+        /* ===== NAVBAR ===== */
         .nav-publik {
             position: fixed; top: 0; left: 0; right: 0; z-index: 200;
             height: 66px; display: flex; align-items: center; justify-content: space-between;
             padding: 0 2rem;
-            background: rgba(92,15,15,0.97);
+            background: rgba(92,15,15,0.98);
             backdrop-filter: blur(14px);
             border-bottom: 1px solid rgba(201,168,76,0.18);
             transition: box-shadow 0.3s;
@@ -46,27 +40,127 @@
         .nav-brand-top { font-size:14px; font-weight:600; color:white; letter-spacing:.04em; line-height:1.2; }
         .nav-brand-btm { font-size:10.5px; color:rgba(255,255,255,.5); }
 
+        /* Menu utama */
         .nav-menu { display:flex; align-items:center; gap:2px; }
-        .nav-menu a { color:rgba(255,255,255,.7); text-decoration:none; font-size:13px; font-weight:500; padding:6px 11px; border-radius:6px; transition:all .2s; white-space:nowrap; }
-        .nav-menu a:hover, .nav-menu a.aktif { color:white; background:rgba(255,255,255,.1); }
-        .nav-menu .btn-masuk { background:var(--emas); color:#2c1810 !important; font-weight:600; margin-left:4px; }
-        .nav-menu .btn-masuk:hover { background:#b8943d !important; }
 
+        /* Item biasa */
+        .nav-menu > a {
+            color:rgba(255,255,255,.75); text-decoration:none; font-size:13px; font-weight:500;
+            padding:8px 12px; border-radius:6px; transition:all .2s; white-space:nowrap;
+        }
+        .nav-menu > a:hover, .nav-menu > a.aktif {
+            color:white; background:rgba(255,255,255,.1);
+        }
+
+        /* DROPDOWN */
+        .nav-dropdown { position: relative; }
+        .nav-dropdown-trigger {
+            display: flex; align-items: center; gap: 5px;
+            color:rgba(255,255,255,.75); font-size:13px; font-weight:500;
+            padding:8px 12px; border-radius:6px; cursor:pointer;
+            transition:all .2s; white-space:nowrap; user-select:none;
+        }
+        .nav-dropdown-trigger:hover,
+        .nav-dropdown.open .nav-dropdown-trigger {
+            color:white; background:rgba(255,255,255,.1);
+        }
+        .nav-dropdown-trigger.aktif { color:white; background:rgba(255,255,255,.1); }
+        .nav-dropdown-trigger svg { transition: transform .2s; flex-shrink:0; }
+        .nav-dropdown.open .nav-dropdown-trigger svg { transform: rotate(180deg); }
+
+        .nav-dropdown-panel {
+            display: none;
+            position: absolute; top: calc(100% + 10px); left: 0;
+            background: #3d0a0a;
+            border: 1px solid rgba(201,168,76,.2);
+            border-radius: 12px;
+            padding: 8px;
+            min-width: 220px;
+            box-shadow: 0 16px 40px rgba(0,0,0,.4);
+            z-index: 300;
+        }
+        .nav-dropdown.open .nav-dropdown-panel { display: block; }
+        .nav-dropdown-panel a {
+            display: flex; align-items: center; gap: 10px;
+            padding: 10px 14px; border-radius: 8px;
+            color: rgba(255,249,240,.75); text-decoration: none;
+            font-size: 13px; font-weight: 500;
+            transition: all .2s;
+        }
+        .nav-dropdown-panel a:hover { background: rgba(255,255,255,.08); color: #fff9f0; }
+        .nav-dropdown-panel a.aktif { background: rgba(201,168,76,.15); color: var(--emas); }
+        .nav-dropdown-panel .drop-icon {
+            width: 28px; height: 28px; background: rgba(201,168,76,.12);
+            border-radius: 6px; display: flex; align-items: center; justify-content: center;
+            font-size: 14px; flex-shrink: 0;
+        }
+        .nav-dropdown-panel .drop-divider {
+            height: 1px; background: rgba(201,168,76,.12); margin: 6px 8px;
+        }
+
+        /* Tombol auth */
+        .btn-masuk {
+            display: inline-flex; align-items: center; gap: 7px;
+            background: var(--emas); color: #2c1810 !important;
+            font-size: 13px; font-weight: 600;
+            padding: 8px 16px; border-radius: 8px;
+            text-decoration: none; transition: all .2s;
+            margin-left: 6px; white-space: nowrap;
+        }
+        .btn-masuk:hover { background: #b8943d; }
+
+        /* User dropdown (sudah login) */
+        .user-dropdown { position: relative; }
+        .user-trigger {
+            display: flex; align-items: center; gap: 8px;
+            background: rgba(255,255,255,.08); border: 1px solid rgba(201,168,76,.25);
+            border-radius: 8px; padding: 6px 12px 6px 8px;
+            cursor: pointer; color: rgba(255,249,240,.85); font-size: 13px;
+            font-weight: 500; transition: all .2s; margin-left: 6px;
+        }
+        .user-trigger:hover { background: rgba(255,255,255,.13); }
+        .user-avatar {
+            width: 26px; height: 26px; border-radius: 50%;
+            background: var(--emas); display: flex; align-items: center;
+            justify-content: center; font-size: 11px; font-weight: 700; color: #2c1810;
+            overflow: hidden; flex-shrink: 0;
+        }
+        .user-avatar img { width: 100%; height: 100%; object-fit: cover; }
+        .user-panel {
+            display: none; position: absolute; top: calc(100% + 10px); right: 0;
+            background: #3d0a0a; border: 1px solid rgba(201,168,76,.2);
+            border-radius: 12px; padding: 8px; min-width: 200px;
+            box-shadow: 0 16px 40px rgba(0,0,0,.4); z-index: 300;
+        }
+        .user-dropdown.open .user-panel { display: block; }
+        .user-panel-header { padding: 10px 14px 12px; border-bottom: 1px solid rgba(201,168,76,.12); margin-bottom: 6px; }
+        .user-panel-name  { font-size: 13.5px; font-weight: 600; color: #fff9f0; }
+        .user-panel-email { font-size: 11.5px; color: rgba(255,249,240,.45); margin-top: 2px; }
+        .user-panel a {
+            display: flex; align-items: center; gap: 10px; padding: 9px 14px;
+            border-radius: 8px; color: rgba(255,249,240,.75); text-decoration: none;
+            font-size: 13px; font-weight: 500; transition: all .2s;
+        }
+        .user-panel a:hover { background: rgba(255,255,255,.08); color: #fff9f0; }
+        .user-panel .logout-btn {
+            width: 100%; text-align: left; background: none; border: none;
+            cursor: pointer; font-family: inherit;
+            display: flex; align-items: center; gap: 10px; padding: 9px 14px;
+            border-radius: 8px; color: rgba(255,100,100,.8); font-size: 13px; font-weight: 500;
+            transition: all .2s;
+        }
+        .user-panel .logout-btn:hover { background: rgba(255,0,0,.08); color: #ff8080; }
+
+        /* Hamburger */
         .nav-toggle { display:none; flex-direction:column; gap:5px; cursor:pointer; padding:6px; flex-shrink:0; }
-        .nav-toggle span { display:block; width:22px; height:2px; background:white; border-radius:2px; }
+        .nav-toggle span { display:block; width:22px; height:2px; background:white; border-radius:2px; transition: all .3s; }
 
-        /* KONTEN */
+        /* PAGE WRAP */
         .page-wrap { padding-top: 66px; }
 
         /* PAGE HEADER */
-        .page-header {
-            background: var(--merah-tua); padding: 52px 2.5rem 44px;
-            position: relative; overflow: hidden;
-        }
-        .page-header::before {
-            content:''; position:absolute; inset:0;
-            background-image: repeating-linear-gradient(135deg,rgba(201,168,76,.04) 0,rgba(201,168,76,.04) 1px,transparent 1px,transparent 28px);
-        }
+        .page-header { background: var(--merah-tua); padding: 52px 2.5rem 44px; position: relative; overflow: hidden; }
+        .page-header::before { content:''; position:absolute; inset:0; background-image: repeating-linear-gradient(135deg,rgba(201,168,76,.04) 0,rgba(201,168,76,.04) 1px,transparent 1px,transparent 28px); }
         .page-header-inner { max-width:1200px; margin:0 auto; position:relative; z-index:1; }
         .breadcrumb { display:flex; align-items:center; gap:8px; margin-bottom:12px; font-size:13px; color:rgba(255,249,240,.5); }
         .breadcrumb a { color:rgba(255,249,240,.6); text-decoration:none; transition:color .2s; }
@@ -91,27 +185,38 @@
         /* UTILITIES */
         .fade-up { opacity:0; transform:translateY(26px); transition:opacity .65s ease, transform .65s ease; }
         .fade-up.visible { opacity:1; transform:translateY(0); }
-        .delay-1 { transition-delay:.1s; }
-        .delay-2 { transition-delay:.2s; }
-        .delay-3 { transition-delay:.32s; }
+        .delay-1 { transition-delay:.1s; } .delay-2 { transition-delay:.2s; } .delay-3 { transition-delay:.32s; }
         .btn-emas { display:inline-flex; align-items:center; gap:8px; background:var(--emas); color:#2c1810; text-decoration:none; font-size:14px; font-weight:600; padding:11px 24px; border-radius:8px; transition:all .2s; }
         .btn-emas:hover { background:#b8943d; transform:translateY(-1px); }
         .btn-merah { display:inline-flex; align-items:center; gap:8px; background:var(--merah); color:white; text-decoration:none; font-size:14px; font-weight:600; padding:11px 24px; border-radius:8px; transition:all .2s; box-shadow:0 4px 14px rgba(139,26,26,.3); }
         .btn-merah:hover { background:var(--merah-tua); transform:translateY(-1px); }
 
+        /* MOBILE NAV */
         @media(max-width:1024px){
-            .nav-menu a { font-size:12px; padding:6px 9px; }
+            .nav-menu {
+                display: none; position: absolute; top: 66px; left: 0; right: 0;
+                background: #3d0a0a; flex-direction: column; align-items: stretch;
+                padding: 12px; border-top: 1px solid rgba(201,168,76,.15);
+                gap: 2px; max-height: calc(100vh - 66px); overflow-y: auto;
+            }
+            .nav-menu.open { display: flex; }
+            .nav-menu > a { font-size: 14px; padding: 10px 14px; }
+            .nav-dropdown-trigger { font-size: 14px; padding: 10px 14px; }
+            .nav-dropdown-panel {
+                position: static; background: rgba(255,255,255,.05);
+                border: none; border-radius: 8px; padding: 4px 0 4px 12px;
+                box-shadow: none; margin-top: 2px;
+            }
+            .nav-dropdown-panel a { font-size: 13.5px; }
+            .nav-dropdown.open .nav-dropdown-panel { display: block; }
+            .user-trigger { margin-left: 0; margin-top: 4px; }
+            .user-panel { position: static; box-shadow: none; border: none; background: rgba(255,255,255,.05); border-radius: 8px; margin-top: 4px; }
+            .btn-masuk { margin-left: 0; margin-top: 4px; }
+            .nav-toggle { display: flex; }
         }
         @media(max-width:900px){
             .footer-top { grid-template-columns:1fr; gap:24px; }
             .footer-bottom { flex-direction:column; gap:6px; text-align:center; }
-            .nav-menu {
-                display:none; position:absolute; top:66px; left:0; right:0;
-                background:var(--merah-tua); flex-direction:column;
-                padding:14px; border-top:1px solid rgba(201,168,76,.15); gap:4px;
-            }
-            .nav-menu.open { display:flex; }
-            .nav-toggle { display:flex; }
         }
     </style>
     {{ $styles ?? '' }}
@@ -163,27 +268,139 @@
     </a>
 
     <div class="nav-menu" id="navMenu">
-        <a href="{{ url('/') }}"                    class="{{ request()->is('/') ? 'aktif' : '' }}">Beranda</a>
-        <a href="{{ route('publikasi.index') }}"     class="{{ request()->is('publikasi*') ? 'aktif' : '' }}">Berita</a>
-        <a href="{{ route('kaderisasi.index') }}"    class="{{ request()->is('kaderisasi*') ? 'aktif' : '' }}">Kaderisasi</a>
-        <a href="{{ route('isu-daerah.index') }}"    class="{{ request()->is('isu-daerah*') ? 'aktif' : '' }}">Isu Daerah</a>
-        <a href="{{ route('komisariat.index') }}"    class="{{ request()->is('komisariat*') ? 'aktif' : '' }}">Komisariat</a>
-        <a href="{{ route('agenda.index') }}"        class="{{ request()->is('agenda*') ? 'aktif' : '' }}">Agenda</a>
-        <a href="{{ route('bkm.index') }}"           class="{{ request()->is('bkm*') ? 'aktif' : '' }}">BKM</a>
-        <a href="{{ route('kontak.index') }}"        class="{{ request()->is('kontak*') ? 'aktif' : '' }}">Kontak</a>
+
+        {{-- Beranda --}}
+        <a href="{{ url('/') }}" class="{{ request()->is('/') ? 'aktif' : '' }}">Beranda</a>
+
+        {{-- Kaderisasi dropdown --}}
+        <div class="nav-dropdown" id="drop-kaderisasi">
+            <div class="nav-dropdown-trigger {{ request()->is('kaderisasi*') ? 'aktif' : '' }}"
+                 onclick="toggleDrop('drop-kaderisasi')">
+                Kaderisasi
+                <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg>
+            </div>
+            <div class="nav-dropdown-panel">
+                <a href="{{ route('kaderisasi.index') }}" class="{{ request()->is('kaderisasi') ? 'aktif' : '' }}">
+                    <span class="drop-icon">📋</span> Informasi Daurah Marhalah
+                </a>
+                <a href="{{ route('kaderisasi.index') }}#jadwal" class="{{ request()->is('kaderisasi*daftar*') ? 'aktif' : '' }}">
+                    <span class="drop-icon">✍️</span> Pendaftaran Daurah Marhalah
+                </a>
+                <div class="drop-divider"></div>
+                <a href="{{ route('komisariat.index') }}">
+                    <span class="drop-icon">🏛️</span> Data Komisariat
+                </a>
+            </div>
+        </div>
+
+        {{-- Berita dropdown --}}
+        <div class="nav-dropdown" id="drop-berita">
+            <div class="nav-dropdown-trigger {{ request()->is('publikasi*') || request()->is('isu-daerah*') || request()->is('agenda*') ? 'aktif' : '' }}"
+                 onclick="toggleDrop('drop-berita')">
+                Berita
+                <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg>
+            </div>
+            <div class="nav-dropdown-panel">
+                <a href="{{ route('publikasi.index') }}" class="{{ request()->is('publikasi*') ? 'aktif' : '' }}">
+                    <span class="drop-icon">📰</span> Publikasi & Opini
+                </a>
+                <a href="{{ route('isu-daerah.index') }}" class="{{ request()->is('isu-daerah*') ? 'aktif' : '' }}">
+                    <span class="drop-icon">📣</span> Isu Daerah
+                </a>
+                <a href="{{ route('agenda.index') }}" class="{{ request()->is('agenda*') ? 'aktif' : '' }}">
+                    <span class="drop-icon">📅</span> Agenda KAMMI Tasik
+                </a>
+            </div>
+        </div>
+
+        {{-- BKM --}}
+        <a href="{{ route('bkm.index') }}" class="{{ request()->is('bkm*') ? 'aktif' : '' }}">BKM</a>
+
+        {{-- Tentang dropdown --}}
+        <div class="nav-dropdown" id="drop-tentang">
+            <div class="nav-dropdown-trigger {{ request()->is('tentang*') ? 'aktif' : '' }}"
+                 onclick="toggleDrop('drop-tentang')">
+                Tentang KAMMI
+                <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg>
+            </div>
+            <div class="nav-dropdown-panel">
+                <a href="{{ route('tentang.sejarah') }}" class="{{ request()->is('tentang/sejarah') ? 'aktif' : '' }}">
+                    <span class="drop-icon">📖</span> Sejarah KAMMI Tasikmalaya
+                </a>
+                <a href="{{ route('tentang.visi-misi') }}" class="{{ request()->is('tentang/visi-misi') ? 'aktif' : '' }}">
+                    <span class="drop-icon">🎯</span> Visi & Misi
+                </a>
+                <div class="drop-divider"></div>
+                <a href="{{ route('tentang.mars') }}" class="{{ request()->is('tentang/mars') ? 'aktif' : '' }}">
+                    <span class="drop-icon">🎵</span> Mars KAMMI
+                </a>
+                <a href="{{ route('tentang.hymne') }}" class="{{ request()->is('tentang/hymne') ? 'aktif' : '' }}">
+                    <span class="drop-icon">🎶</span> Hymne KAMMI
+                </a>
+            </div>
+        </div>
+
+        {{-- Kontak --}}
+        <a href="{{ route('kontak.index') }}" class="{{ request()->is('kontak*') ? 'aktif' : '' }}">Kontak</a>
+
+        {{-- AUTH --}}
+        @guest
+            <a href="{{ route('login') }}" class="btn-masuk">
+                <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M15 3h4a2 2 0 012 2v14a2 2 0 01-2 2h-4"/><polyline points="10 17 15 12 10 7"/><line x1="15" y1="12" x2="3" y2="12"/></svg>
+                Masuk
+            </a>
+        @else
+            <div class="user-dropdown" id="drop-user">
+                <div class="user-trigger" onclick="toggleDrop('drop-user')">
+                    <div class="user-avatar">
+                        @if(Auth::user()->avatar)
+                            <img src="{{ Auth::user()->avatar }}" alt="">
+                        @else
+                            {{ strtoupper(substr(Auth::user()->name, 0, 1)) }}
+                        @endif
+                    </div>
+                    {{ Str::limit(Auth::user()->name, 14) }}
+                    <svg width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg>
+                </div>
+                <div class="user-panel">
+                    <div class="user-panel-header">
+                        <div class="user-panel-name">{{ Auth::user()->name }}</div>
+                        <div class="user-panel-email">{{ Auth::user()->email }}</div>
+                    </div>
+                    @if(Auth::user()->hasRole('admin') || Auth::user()->hasRole('super_admin'))
+                        <a href="{{ url('/admin') }}">
+                            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+                            Dashboard Admin
+                        </a>
+                    @endif
+                    <a href="{{ route('profil.index') }}">
+                        <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                        Profil Saya
+                    </a>
+                    <form method="POST" action="{{ route('logout') }}">
+                        @csrf
+                        <button type="submit" class="logout-btn">
+                            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+                            Keluar
+                        </button>
+                    </form>
+                </div>
+            </div>
+        @endguest
+
     </div>
 
-    <div class="nav-toggle" onclick="document.getElementById('navMenu').classList.toggle('open')">
+    <div class="nav-toggle" id="navToggle" onclick="document.getElementById('navMenu').classList.toggle('open')">
         <span></span><span></span><span></span>
     </div>
 </nav>
 
-{{-- ===== KONTEN ===== --}}
+{{-- KONTEN --}}
 <div class="page-wrap">
     {{ $slot }}
 </div>
 
-{{-- ===== FOOTER ===== --}}
+{{-- FOOTER --}}
 <footer class="footer-publik">
     <div class="footer-inner">
         <div class="footer-top">
@@ -206,9 +423,10 @@
             <div class="footer-col">
                 <div class="footer-col-title">Tentang</div>
                 <ul>
+                    <li><a href="{{ route('tentang.sejarah') }}">Sejarah KAMMI</a></li>
+                    <li><a href="{{ route('tentang.visi-misi') }}">Visi & Misi</a></li>
                     <li><a href="{{ route('bkm.index') }}">BKM Kemuslimahan</a></li>
                     <li><a href="{{ route('kontak.index') }}">Kontak Kami</a></li>
-                    <li><a href="{{ route('kontak.index') }}">Cara Bergabung</a></li>
                     <li><a href="{{ route('login') }}">Login Admin</a></li>
                 </ul>
             </div>
@@ -221,8 +439,27 @@
 </footer>
 
 <script>
+// Navbar scroll
 const nav = document.getElementById('navPublik');
 window.addEventListener('scroll', () => nav.classList.toggle('scrolled', scrollY > 40));
+
+// Dropdown toggle
+function toggleDrop(id) {
+    const el = document.getElementById(id);
+    const isOpen = el.classList.contains('open');
+    // Tutup semua dropdown lain
+    document.querySelectorAll('.nav-dropdown, .user-dropdown').forEach(d => d.classList.remove('open'));
+    if (!isOpen) el.classList.add('open');
+}
+
+// Tutup dropdown kalau klik di luar
+document.addEventListener('click', e => {
+    if (!e.target.closest('.nav-dropdown') && !e.target.closest('.user-dropdown')) {
+        document.querySelectorAll('.nav-dropdown, .user-dropdown').forEach(d => d.classList.remove('open'));
+    }
+});
+
+// Fade up observer
 const obs = new IntersectionObserver(entries => {
     entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
 }, { threshold: 0.1 });
