@@ -11,6 +11,8 @@ use App\Http\Controllers\PublikasiController;
 use App\Http\Controllers\KaderisasiController;
 use App\Http\Controllers\KomisariatController;
 use App\Http\Controllers\BkmController;
+use App\Http\Controllers\AgendaController;
+use App\Http\Controllers\KontakController;
 // -----------------------------------------------
 // HALAMAN PUBLIK — tidak perlu login
 // -----------------------------------------------
@@ -31,6 +33,11 @@ Route::get('/komisariat/{komisariat}', [KomisariatController::class, 'show'])->n
 
 Route::get('/bkm', [BkmController::class, 'index'])->name('bkm.index');
 Route::post('/bkm/daftar', [BkmController::class, 'daftar'])->name('bkm.daftar');
+
+Route::get('/agenda', [AgendaController::class, 'index'])->name('agenda.index');
+
+Route::get('/kontak', [KontakController::class, 'index'])->name('kontak.index');
+Route::post('/kontak', [KontakController::class, 'kirim'])->name('kontak.kirim');
 // -----------------------------------------------
 // AUTH ROUTES (bawaan Laravel)
 // -----------------------------------------------
