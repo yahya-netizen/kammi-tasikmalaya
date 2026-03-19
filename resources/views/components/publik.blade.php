@@ -1,261 +1,272 @@
+@props(['title' => null, 'description' => null, 'styles' => null, 'scripts' => null])
+
 <!DOCTYPE html>
 <html lang="id">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
+    
     <title>{{ $title ?? 'KAMMI Daerah Tasikmalaya' }}</title>
     <meta name="description" content="{{ $description ?? 'Website Resmi KAMMI Daerah Tasikmalaya — Kesatuan Aksi Mahasiswa Muslim Indonesia Priangan Timur' }}">
+    
     <meta property="og:title" content="{{ $title ?? 'KAMMI Daerah Tasikmalaya' }}">
     <meta property="og:description" content="{{ $description ?? 'Website Resmi KAMMI Daerah Tasikmalaya' }}">
+    
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,600&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+    
     @vite(['resources/css/app.css', 'resources/js/app.js'])
+    
     <style>
         :root {
-            --merah: #8b1a1a; --merah-tua: #5c0f0f; --merah-terang: #c0392b;
-            --merah-muda: #fdf2f2; --emas: #c9a84c; --krem: #faf7f2; --teks: #2c1810;
+            /* Palette KAMMI */
+            --merah: #8b1a1a; 
+            --merah-tua: #5c0f0f; 
+            --merah-terang: #c0392b;
+            --merah-muda: #fdf2f2; 
+            
+            --emas: #c9a84c; 
+            --emas-tua: #b8943d;
+            --emas-muda: #fef3c7;
+
+            --krem: #faf7f2; 
+            --putih-transparan: rgba(255, 255, 255, 0.9);
+            
+            --teks: #2c1810;
+            --teks-secondary: #6b4040;
+            --border: rgba(201,168,76,0.18);
         }
+
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
         html { scroll-behavior: smooth; }
-        body { font-family: 'DM Sans', sans-serif; background: var(--krem); color: var(--teks); overflow-x: hidden; }
-        .payung-deco { position: absolute; pointer-events: none; }
-        .payung-deco.besar  { width: 220px; opacity: 0.08; }
-        .payung-deco.sedang { width: 140px; opacity: 0.10; }
-        .payung-deco.kecil  { width:  80px; opacity: 0.14; }
+        body { font-family: 'DM Sans', sans-serif; background: var(--krem); color: var(--teks); overflow-x: hidden; line-height: 1.6; }
+        
+        /* Typography Standards */
+        h1, h2, h3, h4, h5, h6, .font-serif { font-family: 'Playfair Display', serif; }
+        p, span, div, li, .font-sans { font-family: 'DM Sans', sans-serif; }
+
+        /* ===== GLOBAL UTILITIES ===== */
+        .section { padding: 80px 2.5rem; position: relative; }
+        .section-inner { max-width: 1200px; margin: 0 auto; width: 100%; }
+        
+        /* Section Headers */
+        .sec-label { display:inline-flex; align-items:center; gap:8px; font-size:11px; font-weight:700; letter-spacing:.12em; text-transform:uppercase; color:var(--merah); margin-bottom:12px; }
+        .sec-label::before { content:''; width:24px; height:2px; background:var(--emas); border-radius:2px; }
+        .sec-title { font-size:clamp(2rem, 3.5vw, 2.8rem); line-height:1.15; color:var(--merah-tua); margin-bottom:18px; }
+        .sec-desc { font-size:16px; color:var(--teks-secondary); max-width:640px; margin-bottom:40px; line-height: 1.7; }
+
+        /* Animations */
+        .fade-up { opacity:0; transform:translateY(30px); transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1); }
+        .fade-up.visible { opacity:1; transform:translateY(0); }
+        .delay-1 { transition-delay: 0.1s; }
+        .delay-2 { transition-delay: 0.2s; }
+        .delay-3 { transition-delay: 0.3s; }
+
+        /* ===== BUTTONS ===== */
+        .btn-emas { 
+            display:inline-flex; align-items:center; gap:8px; background:var(--emas); color:#2c1810; 
+            text-decoration:none; font-size:14px; font-weight:600; padding:12px 26px; border-radius:100px; 
+            transition:all .3s; border:none; cursor:pointer; letter-spacing: 0.02em;
+        }
+        .btn-emas:hover { background:var(--emas-tua); transform:translateY(-2px); box-shadow: 0 8px 20px rgba(201,168,76,0.3); }
+
+        .btn-merah { 
+            display:inline-flex; align-items:center; gap:8px; background:var(--merah); color:white; 
+            text-decoration:none; font-size:14px; font-weight:600; padding:12px 26px; border-radius:100px; 
+            transition:all .3s; border:none; cursor:pointer; letter-spacing: 0.02em;
+        }
+        .btn-merah:hover { background:var(--merah-tua); transform:translateY(-2px); box-shadow: 0 8px 20px rgba(139,26,26,0.3); }
+
+        .btn-outline {
+            display:inline-flex; align-items:center; gap:8px; background:transparent; color:var(--merah); 
+            text-decoration:none; font-size:14px; font-weight:600; padding:11px 25px; border-radius:100px; 
+            border:1.5px solid var(--border); transition:all .3s; letter-spacing: 0.02em;
+        }
+        .btn-outline:hover { border-color:var(--merah); color:var(--merah-tua); background: var(--merah-muda); }
+
+        /* ===== CARDS (Standardized) ===== */
+        .card-kammi {
+            background: white; border: 1px solid var(--border); border-radius: 16px; overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1); display: flex; flex-direction: column; height: 100%;
+            text-decoration: none; color: inherit;
+        }
+        .card-kammi:hover { transform: translateY(-6px); box-shadow: 0 20px 40px rgba(139, 26, 26, 0.08); border-color: rgba(201,168,76,0.4); }
+        .card-img { height: 200px; width: 100%; object-fit: cover; background: var(--krem); }
+        .card-body { padding: 24px; display: flex; flex-direction: column; flex-grow: 1; }
+        .card-meta { display: flex; gap: 10px; margin-bottom: 12px; font-size: 11px; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; color: var(--emas-tua); }
+        .card-title { font-size: 18px; font-weight: 700; color: var(--teks); margin-bottom: 10px; line-height: 1.4; transition: color 0.3s; }
+        .card-kammi:hover .card-title { color: var(--merah); }
+        .card-desc { font-size: 14px; color: var(--teks-secondary); line-height: 1.6; margin-bottom: 20px; flex-grow: 1; }
+        .card-footer { border-top: 1px solid rgba(0,0,0,0.05); padding-top: 16px; display: flex; justify-content: space-between; align-items: center; font-size: 12px; color: #9ca3af; }
+
+        /* ===== PAGE HEADER (Reusable) ===== */
+        .page-header { 
+            background: var(--merah-tua); padding: 140px 2.5rem 80px; position: relative; overflow: hidden; 
+            text-align: center;
+        }
+        .page-header::before { 
+            content:''; position:absolute; inset:0; 
+            background-image: repeating-linear-gradient(135deg,rgba(201,168,76,.03) 0,rgba(201,168,76,.03) 1px,transparent 1px,transparent 30px);
+        }
+        .page-header::after {
+            content:''; position:absolute; bottom:0; left:0; right:0; height:80px;
+            background: linear-gradient(to top, var(--krem), transparent);
+        }
+        .page-header-inner { max-width: 800px; margin: 0 auto; position: relative; z-index: 5; }
+        .page-title { color: white; font-size: clamp(2.2rem, 4.5vw, 3.5rem); margin-bottom: 16px; line-height: 1.1; }
+        .page-subtitle { color: rgba(255,255,255,0.7); font-size: 16px; max-width: 600px; margin: 0 auto; line-height: 1.8; }
+        
+        .breadcrumb { display: flex; justify-content: center; align-items: center; gap: 10px; margin-bottom: 24px; font-size: 11px; text-transform: uppercase; letter-spacing: 0.15em; font-weight: 600; }
+        .breadcrumb a { color: var(--emas); text-decoration: none; transition: color 0.2s; }
+        .breadcrumb a:hover { color: white; }
+        .breadcrumb span { color: rgba(255,255,255,0.2); }
+        .breadcrumb .current { color: rgba(255,255,255,0.5); }
 
         /* ===== NAVBAR ===== */
         .nav-publik {
             position: fixed; top: 0; left: 0; right: 0; z-index: 200;
-            height: 66px; display: flex; align-items: center; justify-content: space-between;
-            padding: 0 2rem;
-            background: rgba(92,15,15,0.98);
-            backdrop-filter: blur(14px);
-            border-bottom: 1px solid rgba(201,168,76,0.18);
-            transition: box-shadow 0.3s;
+            height: 76px; display: flex; align-items: center; justify-content: space-between;
+            padding: 0 3rem; background: rgba(92,15,15,0.9); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255,255,255,0.08); transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
         }
-        .nav-publik.scrolled { box-shadow: 0 4px 28px rgba(0,0,0,0.35); }
-        .nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; flex-shrink: 0; }
-        .logo-badge { width:38px; height:38px; background:var(--emas); border-radius:8px; display:flex; align-items:center; justify-content:center; overflow:hidden; flex-shrink:0; }
-        .nav-brand-top { font-size:14px; font-weight:600; color:white; letter-spacing:.04em; line-height:1.2; }
-        .nav-brand-btm { font-size:10.5px; color:rgba(255,255,255,.5); }
+        .nav-publik.scrolled { height: 66px; background: rgba(92,15,15,0.98); box-shadow: 0 10px 30px rgba(0,0,0,0.2); }
+        
+        .nav-logo { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+        .logo-badge { width:42px; height:42px; background:var(--emas); border-radius:10px; display:flex; align-items:center; justify-content:center; overflow:hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.15); }
+        .nav-brand-top { font-size:16px; font-weight:700; color:white; letter-spacing:.02em; line-height:1; font-family: 'Playfair Display', serif; }
+        .nav-brand-btm { font-size:11px; color:rgba(255,255,255,.6); font-weight:500; margin-top: 3px; letter-spacing: 0.02em; }
 
-        /* Menu utama */
-        .nav-menu { display:flex; align-items:center; gap:2px; }
-
-        /* Item biasa */
+        .nav-menu { display:flex; align-items:center; gap:6px; }
         .nav-menu > a {
-            color:rgba(255,255,255,.75); text-decoration:none; font-size:13px; font-weight:500;
-            padding:8px 12px; border-radius:6px; transition:all .2s; white-space:nowrap;
+            color:rgba(255,255,255,.8); text-decoration:none; font-size:13.5px; font-weight:500;
+            padding:8px 16px; border-radius:100px; transition:all .25s;
         }
-        .nav-menu > a:hover, .nav-menu > a.aktif {
-            color:white; background:rgba(255,255,255,.1);
-        }
+        .nav-menu > a:hover, .nav-menu > a.aktif { color:white; background:rgba(255,255,255,.1); }
 
-        /* DROPDOWN */
+        /* Dropdown Styling */
         .nav-dropdown { position: relative; }
         .nav-dropdown-trigger {
-            display: flex; align-items: center; gap: 5px;
-            color:rgba(255,255,255,.75); font-size:13px; font-weight:500;
-            padding:8px 12px; border-radius:6px; cursor:pointer;
-            transition:all .2s; white-space:nowrap; user-select:none;
+            display: flex; align-items: center; gap: 6px; color:rgba(255,255,255,.8);
+            font-size:13.5px; font-weight:500; padding:8px 16px; border-radius:100px;
+            cursor:pointer; transition:all .25s; user-select:none;
         }
-        .nav-dropdown-trigger:hover,
-        .nav-dropdown.open .nav-dropdown-trigger {
-            color:white; background:rgba(255,255,255,.1);
-        }
+        .nav-dropdown-trigger:hover, .nav-dropdown.open .nav-dropdown-trigger { color:white; background:rgba(255,255,255,.1); }
         .nav-dropdown-trigger.aktif { color:white; background:rgba(255,255,255,.1); }
-        .nav-dropdown-trigger svg { transition: transform .2s; flex-shrink:0; }
-        .nav-dropdown.open .nav-dropdown-trigger svg { transform: rotate(180deg); }
-
         .nav-dropdown-panel {
-            display: none;
-            position: absolute; top: calc(100% + 10px); left: 0;
-            background: #3d0a0a;
-            border: 1px solid rgba(201,168,76,.2);
-            border-radius: 12px;
-            padding: 8px;
-            min-width: 220px;
-            box-shadow: 0 16px 40px rgba(0,0,0,.4);
-            z-index: 300;
+            display: none; position: absolute; top: calc(100% + 14px); left: 0;
+            background: #3d0a0a; border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 16px; padding: 12px; min-width: 280px;
+            box-shadow: 0 20px 50px rgba(0,0,0,.4); z-index: 300;
         }
-        .nav-dropdown.open .nav-dropdown-panel { display: block; }
+        .nav-dropdown.open .nav-dropdown-panel { display: block; animation: navDrop 0.3s cubic-bezier(0.16, 1, 0.3, 1); }
+        @keyframes navDrop { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
         .nav-dropdown-panel a {
-            display: flex; align-items: center; gap: 10px;
-            padding: 10px 14px; border-radius: 8px;
-            color: rgba(255,249,240,.75); text-decoration: none;
-            font-size: 13px; font-weight: 500;
-            transition: all .2s;
+            display: flex; align-items: center; gap: 12px; padding: 12px 16px;
+            border-radius: 10px; color: rgba(255,249,240,.7); text-decoration: none;
+            font-size: 13.5px; font-weight: 500; transition: all .2s;
         }
-        .nav-dropdown-panel a:hover { background: rgba(255,255,255,.08); color: #fff9f0; }
+        .nav-dropdown-panel a:hover { background: rgba(255,255,255,.06); color: white; transform: translateX(4px); }
         .nav-dropdown-panel a.aktif { background: rgba(201,168,76,.15); color: var(--emas); }
-        .nav-dropdown-panel .drop-icon {
-            width: 28px; height: 28px; background: rgba(201,168,76,.12);
-            border-radius: 6px; display: flex; align-items: center; justify-content: center;
-            font-size: 14px; flex-shrink: 0;
-        }
-        .nav-dropdown-panel .drop-divider {
-            height: 1px; background: rgba(201,168,76,.12); margin: 6px 8px;
-        }
+        .drop-divider { height: 1px; background: rgba(255,255,255,0.08); margin: 8px 12px; }
 
-        /* Tombol auth */
-        .btn-masuk {
-            display: inline-flex; align-items: center; gap: 7px;
-            background: var(--emas); color: #2c1810 !important;
-            font-size: 13px; font-weight: 600;
-            padding: 8px 16px; border-radius: 8px;
-            text-decoration: none; transition: all .2s;
-            margin-left: 6px; white-space: nowrap;
-        }
-        .btn-masuk:hover { background: #b8943d; }
-
-        /* User dropdown (sudah login) */
+        /* USER DROPDOWN SPECIFIC */
         .user-dropdown { position: relative; }
         .user-trigger {
-            display: flex; align-items: center; gap: 8px;
-            background: rgba(255,255,255,.08); border: 1px solid rgba(201,168,76,.25);
-            border-radius: 8px; padding: 6px 12px 6px 8px;
-            cursor: pointer; color: rgba(255,249,240,.85); font-size: 13px;
-            font-weight: 500; transition: all .2s; margin-left: 6px;
+            display: flex; align-items: center; gap: 10px; padding: 6px 16px 6px 8px;
+            background: rgba(255,255,255,0.08); border: 1px solid rgba(201,168,76,0.3);
+            border-radius: 100px; cursor: pointer; transition: all 0.3s;
+            margin-left: 10px;
         }
-        .user-trigger:hover { background: rgba(255,255,255,.13); }
+        .user-trigger:hover { background: rgba(255,255,255,0.15); border-color: var(--emas); }
         .user-avatar {
-            width: 26px; height: 26px; border-radius: 50%;
-            background: var(--emas); display: flex; align-items: center;
-            justify-content: center; font-size: 11px; font-weight: 700; color: #2c1810;
-            overflow: hidden; flex-shrink: 0;
+            width: 32px; height: 32px; border-radius: 50%; overflow: hidden;
+            background: var(--emas); border: 2px solid rgba(255,255,255,0.2);
+            display: flex; align-items: center; justify-content: center;
         }
         .user-avatar img { width: 100%; height: 100%; object-fit: cover; }
+        .user-trigger span { font-size: 13.5px; font-weight: 600; color: white; }
+        
         .user-panel {
-            display: none; position: absolute; top: calc(100% + 10px); right: 0;
-            background: #3d0a0a; border: 1px solid rgba(201,168,76,.2);
-            border-radius: 12px; padding: 8px; min-width: 200px;
-            box-shadow: 0 16px 40px rgba(0,0,0,.4); z-index: 300;
+            display: none; position: absolute; top: calc(100% + 14px); right: 0;
+            background: #3d0a0a; border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 20px; padding: 12px; min-width: 260px;
+            box-shadow: 0 25px 60px rgba(0,0,0,0.5); z-index: 300;
         }
-        .user-dropdown.open .user-panel { display: block; }
-        .user-panel-header { padding: 10px 14px 12px; border-bottom: 1px solid rgba(201,168,76,.12); margin-bottom: 6px; }
-        .user-panel-name  { font-size: 13.5px; font-weight: 600; color: #fff9f0; }
-        .user-panel-email { font-size: 11.5px; color: rgba(255,249,240,.45); margin-top: 2px; }
-        .user-panel a {
-            display: flex; align-items: center; gap: 10px; padding: 9px 14px;
-            border-radius: 8px; color: rgba(255,249,240,.75); text-decoration: none;
-            font-size: 13px; font-weight: 500; transition: all .2s;
+        .user-dropdown.open .user-panel { display: block; animation: navDrop 0.3s cubic-bezier(0.16, 1, 0.3, 1); }
+        
+        .user-panel-header { padding: 16px; border-bottom: 1px solid rgba(255,255,255,0.08); margin-bottom: 8px; }
+        .user-name { font-size: 14px; font-weight: 700; color: white; display: block; }
+        .user-email { font-size: 11px; color: rgba(255,255,255,0.5); margin-top: 2px; display: block; }
+        .user-role-badge { 
+            display: inline-block; margin-top: 8px; font-size: 9px; font-weight: 800; 
+            text-transform: uppercase; letter-spacing: 0.05em; padding: 3px 10px; 
+            border-radius: 6px; background: rgba(201,168,76,0.15); color: var(--emas);
+            border: 1px solid rgba(201,168,76,0.2);
         }
-        .user-panel a:hover { background: rgba(255,255,255,.08); color: #fff9f0; }
-        .user-panel .logout-btn {
-            width: 100%; text-align: left; background: none; border: none;
-            cursor: pointer; font-family: inherit;
-            display: flex; align-items: center; gap: 10px; padding: 9px 14px;
-            border-radius: 8px; color: rgba(255,100,100,.8); font-size: 13px; font-weight: 500;
-            transition: all .2s;
+
+        .user-panel a, .logout-btn {
+            display: flex; align-items: center; gap: 12px; padding: 12px 16px;
+            border-radius: 12px; color: rgba(255,249,240,.7); text-decoration: none;
+            font-size: 13.5px; font-weight: 500; transition: all 0.2s;
         }
-        .user-panel .logout-btn:hover { background: rgba(255,0,0,.08); color: #ff8080; }
+        .user-panel a:hover { background: rgba(255,255,255,0.06); color: white; transform: translateX(4px); }
+        .logout-btn { 
+            width: 100%; text-align: left; background: none; border: none; 
+            cursor: pointer; font-family: inherit; color: #ff8080;
+        }
+        .logout-btn:hover { background: rgba(255,0,0,0.08); color: #ff4d4d; }
 
-        /* Hamburger */
-        .nav-toggle { display:none; flex-direction:column; gap:5px; cursor:pointer; padding:6px; flex-shrink:0; }
-        .nav-toggle span { display:block; width:22px; height:2px; background:white; border-radius:2px; transition: all .3s; }
+        /* Mobile Adjustments */
+        .nav-toggle { display:none; flex-direction:column; gap:6px; cursor:pointer; padding:8px; }
+        .nav-toggle span { display:block; width:26px; height:2px; background:white; border-radius:2px; transition: all .3s; }
 
-        /* PAGE WRAP */
-        .page-wrap { padding-top: 66px; }
+        /* ===== FOOTER ===== */
+        .footer-publik { background: #2a0505; color:rgba(255,249,240,.5); padding:80px 3rem 40px; border-top: 1px solid var(--border); position: relative; overflow: hidden; }
+        .footer-brand-name { font-family:'Playfair Display',serif; font-size:1.4rem; color:#fff9f0; margin-bottom:15px; }
+        .footer-col-title { font-size:11px; font-weight:700; letter-spacing:.15em; text-transform:uppercase; color:var(--emas); margin-bottom:24px; }
+        .footer-col ul { list-style:none; padding:0; }
+        .footer-col ul li { margin-bottom: 14px; }
+        .footer-col ul a { color:rgba(255,249,240,.5); text-decoration:none; font-size:14px; transition:all .2s; display: inline-flex; align-items: center; gap: 0; }
+        .footer-col ul a:hover { color:white; gap: 8px; color: var(--emas); }
+        .footer-bottom { border-top: 1px solid rgba(255,255,255,0.05); padding-top: 30px; margin-top: 60px; display:flex; justify-content:space-between; align-items:center; font-size:13px; color: rgba(255,255,255,0.3); }
 
-        /* PAGE HEADER */
-        .page-header { background: var(--merah-tua); padding: 52px 2.5rem 44px; position: relative; overflow: hidden; }
-        .page-header::before { content:''; position:absolute; inset:0; background-image: repeating-linear-gradient(135deg,rgba(201,168,76,.04) 0,rgba(201,168,76,.04) 1px,transparent 1px,transparent 28px); }
-        .page-header-inner { max-width:1200px; margin:0 auto; position:relative; z-index:1; }
-        .breadcrumb { display:flex; align-items:center; gap:8px; margin-bottom:12px; font-size:13px; color:rgba(255,249,240,.5); }
-        .breadcrumb a { color:rgba(255,249,240,.6); text-decoration:none; transition:color .2s; }
-        .breadcrumb a:hover { color:#fff9f0; }
-        .breadcrumb-sep { font-size:11px; opacity:.4; }
-        .page-header h1 { font-family:'Playfair Display',serif; font-size:clamp(1.6rem,2.5vw,2.2rem); color:#fff9f0; }
-        .page-header p { margin-top:8px; font-size:14px; color:rgba(255,249,240,.6); }
-
-        /* FOOTER */
-        .footer-publik { background: #3a0a0a; color:rgba(255,249,240,.55); padding:52px 2.5rem 28px; }
-        .footer-inner  { max-width:1200px; margin:0 auto; }
-        .footer-top { display:grid; grid-template-columns:1.5fr 1fr 1fr; gap:48px; padding-bottom:36px; border-bottom:1px solid rgba(201,168,76,.12); margin-bottom:24px; }
-        .footer-brand-name { font-family:'Playfair Display',serif; font-size:1.1rem; color:#fff9f0; margin:12px 0 8px; }
-        .footer-brand-desc { font-size:13px; line-height:1.75; color:rgba(255,249,240,.4); }
-        .footer-col-title { font-size:11px; font-weight:600; letter-spacing:.09em; text-transform:uppercase; color:rgba(255,249,240,.3); margin-bottom:14px; }
-        .footer-col ul { list-style:none; }
-        .footer-col ul li+li { margin-top:8px; }
-        .footer-col ul a { color:rgba(255,249,240,.5); text-decoration:none; font-size:13.5px; transition:color .2s; }
-        .footer-col ul a:hover { color:#fff9f0; }
-        .footer-bottom { display:flex; justify-content:space-between; align-items:center; font-size:12px; color:rgba(255,249,240,.25); }
-
-        /* UTILITIES */
-        .fade-up { opacity:0; transform:translateY(26px); transition:opacity .65s ease, transform .65s ease; }
-        .fade-up.visible { opacity:1; transform:translateY(0); }
-        .delay-1 { transition-delay:.1s; } .delay-2 { transition-delay:.2s; } .delay-3 { transition-delay:.32s; }
-        .btn-emas { display:inline-flex; align-items:center; gap:8px; background:var(--emas); color:#2c1810; text-decoration:none; font-size:14px; font-weight:600; padding:11px 24px; border-radius:8px; transition:all .2s; }
-        .btn-emas:hover { background:#b8943d; transform:translateY(-1px); }
-        .btn-merah { display:inline-flex; align-items:center; gap:8px; background:var(--merah); color:white; text-decoration:none; font-size:14px; font-weight:600; padding:11px 24px; border-radius:8px; transition:all .2s; box-shadow:0 4px 14px rgba(139,26,26,.3); }
-        .btn-merah:hover { background:var(--merah-tua); transform:translateY(-1px); }
-
-        /* MOBILE NAV */
         @media(max-width:1024px){
+            .nav-publik { padding: 0 1.5rem; }
             .nav-menu {
-                display: none; position: absolute; top: 66px; left: 0; right: 0;
+                display: none; position: absolute; top: 76px; left: 0; right: 0;
                 background: #3d0a0a; flex-direction: column; align-items: stretch;
-                padding: 12px; border-top: 1px solid rgba(201,168,76,.15);
-                gap: 2px; max-height: calc(100vh - 66px); overflow-y: auto;
+                padding: 24px; border-top: 1px solid rgba(255,255,255,0.08); gap: 8px;
+                max-height: calc(100vh - 76px); overflow-y: auto;
             }
             .nav-menu.open { display: flex; }
-            .nav-menu > a { font-size: 14px; padding: 10px 14px; }
-            .nav-dropdown-trigger { font-size: 14px; padding: 10px 14px; }
-            .nav-dropdown-panel {
-                position: static; background: rgba(255,255,255,.05);
-                border: none; border-radius: 8px; padding: 4px 0 4px 12px;
-                box-shadow: none; margin-top: 2px;
-            }
-            .nav-dropdown-panel a { font-size: 13.5px; }
-            .nav-dropdown.open .nav-dropdown-panel { display: block; }
-            .user-trigger { margin-left: 0; margin-top: 4px; }
-            .user-panel { position: static; box-shadow: none; border: none; background: rgba(255,255,255,.05); border-radius: 8px; margin-top: 4px; }
-            .btn-masuk { margin-left: 0; margin-top: 4px; }
             .nav-toggle { display: flex; }
-        }
-        @media(max-width:900px){
-            .footer-top { grid-template-columns:1fr; gap:24px; }
-            .footer-bottom { flex-direction:column; gap:6px; text-align:center; }
+            .nav-dropdown-panel, .user-panel { position: static; background: rgba(0,0,0,0.2); border: none; box-shadow: none; margin-top: 5px; padding-left: 15px; min-width: auto; animation: none; }
+            .user-trigger { margin: 10px 0 0 0; padding: 10px; width: 100%; justify-content: flex-start; }
+            .section { padding: 60px 1.5rem; }
+            .footer-publik { padding: 60px 1.5rem 30px; }
+            .footer-top { grid-template-columns: 1fr !important; gap: 40px !important; }
+            .footer-bottom { flex-direction: column; gap: 12px; text-align: center; }
         }
     </style>
-    {{ $styles ?? '' }}
+    {!! $styles !!}
 </head>
 <body>
 
-{{-- SVG Payung Geulis --}}
+{{-- Pattern Ornamen Global (Payung Geulis) --}}
 <svg style="display:none" xmlns="http://www.w3.org/2000/svg">
-    <defs>
-        <symbol id="payung-geulis" viewBox="0 0 120 150">
-            <ellipse cx="60" cy="12" rx="4" ry="5" fill="#c9a84c"/>
-            <path d="M60 8 Q63 2 60 0 Q57 2 60 8Z" fill="#c9a84c"/>
-            <line x1="60" y1="14" x2="10"  y2="70" stroke="#5c0f0f" stroke-width="1.2" stroke-linecap="round"/>
-            <line x1="60" y1="14" x2="25"  y2="64" stroke="#5c0f0f" stroke-width="1.2" stroke-linecap="round"/>
-            <line x1="60" y1="14" x2="42"  y2="60" stroke="#5c0f0f" stroke-width="1.2" stroke-linecap="round"/>
-            <line x1="60" y1="14" x2="60"  y2="70" stroke="#5c0f0f" stroke-width="1.2" stroke-linecap="round"/>
-            <line x1="60" y1="14" x2="78"  y2="60" stroke="#5c0f0f" stroke-width="1.2" stroke-linecap="round"/>
-            <line x1="60" y1="14" x2="95"  y2="64" stroke="#5c0f0f" stroke-width="1.2" stroke-linecap="round"/>
-            <line x1="60" y1="14" x2="110" y2="70" stroke="#5c0f0f" stroke-width="1.2" stroke-linecap="round"/>
-            <path d="M10 70 Q16 54 22 60 Q28 66 34 54 Q40 42 46 52 Q50 62 54 50 Q57 40 60 14 Q63 40 66 50 Q70 62 74 52 Q80 42 86 54 Q92 66 98 60 Q104 54 110 70 Q98 80 88 74 Q80 82 74 72 Q68 66 60 74 Q52 66 46 72 Q40 82 32 74 Q22 80 10 70Z" fill="#8b1a1a" stroke="#5c0f0f" stroke-width="1"/>
-            <path d="M10 70 Q16 58 22 62 Q28 68 34 58 Q40 48 46 56 Q52 64 60 56 Q68 64 74 56 Q80 48 86 58 Q92 68 98 62 Q104 58 110 70 Q98 76 88 70 Q80 78 74 68 Q68 62 60 70 Q52 62 46 68 Q40 78 32 70 Q22 76 10 70Z" fill="#c0392b" opacity="0.55"/>
-            <circle cx="60" cy="16" r="6" fill="#c9a84c"/>
-            <circle cx="60" cy="16" r="3.5" fill="#fff9f0"/>
-            <circle cx="60" cy="16" r="1.5" fill="#c9a84c"/>
-            <circle cx="28" cy="65" r="4" fill="#c9a84c" opacity=".85"/>
-            <circle cx="28" cy="65" r="2" fill="#fff9f0" opacity=".8"/>
-            <circle cx="92" cy="65" r="4" fill="#c9a84c" opacity=".85"/>
-            <circle cx="92" cy="65" r="2" fill="#fff9f0" opacity=".8"/>
-            <circle cx="60" cy="72" r="4" fill="#c9a84c" opacity=".85"/>
-            <circle cx="60" cy="72" r="2" fill="#fff9f0" opacity=".8"/>
-            <path d="M10 70 Q16 78 22 74 Q28 70 34 78 Q40 86 46 78 Q52 70 58 78 Q64 86 70 78 Q76 70 82 78 Q88 86 94 78 Q100 70 106 74 Q112 78 110 70" fill="none" stroke="#c9a84c" stroke-width="1.8" stroke-linecap="round"/>
-            <line x1="60" y1="145" x2="60" y2="72" stroke="#c9a84c" stroke-width="3.5" stroke-linecap="round"/>
-            <path d="M60 145 Q47 145 47 132 Q47 118 60 118" fill="none" stroke="#c9a84c" stroke-width="3.5" stroke-linecap="round"/>
-            <circle cx="47" cy="132" r="4" fill="#c9a84c"/>
-        </symbol>
-    </defs>
+    <symbol id="payung-geulis" viewBox="0 0 120 150">
+        <ellipse cx="60" cy="12" rx="4" ry="5" fill="#c9a84c"/>
+        <path d="M60 8 Q63 2 60 0 Q57 2 60 8Z" fill="#c9a84c"/>
+        <line x1="60" y1="14" x2="10"  y2="70" stroke="#5c0f0f" stroke-width="1.2" stroke-linecap="round"/>
+        <line x1="60" y1="14" x2="110" y2="70" stroke="#5c0f0f" stroke-width="1.2" stroke-linecap="round"/>
+        <path d="M10 70 Q16 54 22 60 Q28 66 34 54 Q40 42 46 52 Q50 62 54 50 Q57 40 60 14 Q63 40 66 50 Q70 62 74 52 Q80 42 86 54 Q92 66 98 60 Q104 54 110 70 Q98 80 88 74 Q80 82 74 72 Q68 66 60 74 Q52 66 46 72 Q40 82 32 74 Q22 80 10 70Z" fill="#8b1a1a" stroke="#5c0f0f" stroke-width="1"/>
+        <path d="M10 70 Q16 78 22 74 Q28 70 34 78 Q40 86 46 78 Q52 70 58 78 Q64 86 70 78 Q76 70 82 78 Q88 86 94 78 Q100 70 106 74 Q112 78 110 70" fill="none" stroke="#c9a84c" stroke-width="1.8" stroke-linecap="round"/>
+        <line x1="60" y1="145" x2="60" y2="72" stroke="#c9a84c" stroke-width="3.5" stroke-linecap="round"/>
+    </symbol>
 </svg>
 
-{{-- ===== NAVBAR ===== --}}
 <nav class="nav-publik" id="navPublik">
     <a href="{{ url('/') }}" class="nav-logo">
         <div class="logo-badge">
@@ -267,204 +278,180 @@
         </div>
     </a>
 
+    <div class="nav-toggle" id="navToggle" onclick="toggleNav()">
+        <span></span><span></span><span></span>
+    </div>
+
     <div class="nav-menu" id="navMenu">
+        <a href="{{ url('/') }}" class="{{ request()->routeIs('home') ? 'aktif' : '' }}">Beranda</a>
 
-        {{-- Beranda --}}
-        <a href="{{ url('/') }}" class="{{ request()->is('/') ? 'aktif' : '' }}">Beranda</a>
-
-        {{-- Kaderisasi dropdown --}}
         <div class="nav-dropdown" id="drop-kaderisasi">
-            <div class="nav-dropdown-trigger {{ request()->is('kaderisasi*') ? 'aktif' : '' }}"
-                 onclick="toggleDrop('drop-kaderisasi')">
-                Kaderisasi
-                <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg>
+            <div class="nav-dropdown-trigger {{ request()->is('kaderisasi*') || request()->is('komisariat*') ? 'aktif' : '' }}" onclick="toggleDrop('drop-kaderisasi', event)">
+                Kaderisasi <svg width="10" height="10" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg>
             </div>
             <div class="nav-dropdown-panel">
-                <a href="{{ route('kaderisasi.index') }}" class="{{ request()->is('kaderisasi') ? 'aktif' : '' }}">
-                    <span class="drop-icon">📋</span> Informasi Daurah Marhalah
-                </a>
-                <a href="{{ route('kaderisasi.index') }}#jadwal" class="{{ request()->is('kaderisasi*daftar*') ? 'aktif' : '' }}">
-                    <span class="drop-icon">✍️</span> Pendaftaran Daurah Marhalah
-                </a>
+                <a href="{{ route('kaderisasi.index') }}" class="{{ request()->routeIs('kaderisasi.index') ? 'aktif' : '' }}">📋 Informasi Daurah Marhalah</a>
+                <a href="{{ route('kaderisasi.index') }}#jadwal" onclick="closeNav()">✍️ Pendaftaran Daurah Marhalah</a>
                 <div class="drop-divider"></div>
-                <a href="{{ route('komisariat.index') }}">
-                    <span class="drop-icon">🏛️</span> Data Komisariat
-                </a>
+                <a href="{{ route('komisariat.index') }}" class="{{ request()->is('komisariat*') ? 'aktif' : '' }}">🏛️ Data Komisariat</a>
             </div>
         </div>
 
-        {{-- Berita dropdown --}}
         <div class="nav-dropdown" id="drop-berita">
-            <div class="nav-dropdown-trigger {{ request()->is('publikasi*') || request()->is('isu-daerah*') || request()->is('agenda*') ? 'aktif' : '' }}"
-                 onclick="toggleDrop('drop-berita')">
-                Berita
-                <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg>
+            <div class="nav-dropdown-trigger {{ request()->is('publikasi*') || request()->is('isu-daerah*') || request()->is('agenda*') ? 'aktif' : '' }}" onclick="toggleDrop('drop-berita', event)">
+                Berita <svg width="10" height="10" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg>
             </div>
             <div class="nav-dropdown-panel">
-                <a href="{{ route('publikasi.index') }}" class="{{ request()->is('publikasi*') ? 'aktif' : '' }}">
-                    <span class="drop-icon">📰</span> Publikasi & Opini
-                </a>
-                <a href="{{ route('isu-daerah.index') }}" class="{{ request()->is('isu-daerah*') ? 'aktif' : '' }}">
-                    <span class="drop-icon">📣</span> Isu Daerah
-                </a>
-                <a href="{{ route('agenda.index') }}" class="{{ request()->is('agenda*') ? 'aktif' : '' }}">
-                    <span class="drop-icon">📅</span> Agenda KAMMI Tasik
-                </a>
+                <a href="{{ route('publikasi.index') }}" class="{{ request()->is('publikasi*') ? 'aktif' : '' }}">📰 Publikasi & Opini</a>
+                <a href="{{ route('isu-daerah.index') }}" class="{{ request()->is('isu-daerah*') ? 'aktif' : '' }}">📣 Isu Daerah</a>
+                <a href="{{ route('agenda.index') }}" class="{{ request()->is('agenda*') ? 'aktif' : '' }}">📅 Agenda KAMMI Tasik</a>
             </div>
         </div>
 
-        {{-- BKM --}}
         <a href="{{ route('bkm.index') }}" class="{{ request()->is('bkm*') ? 'aktif' : '' }}">BKM</a>
 
-        {{-- Tentang dropdown --}}
         <div class="nav-dropdown" id="drop-tentang">
-            <div class="nav-dropdown-trigger {{ request()->is('tentang*') ? 'aktif' : '' }}"
-                 onclick="toggleDrop('drop-tentang')">
-                Tentang KAMMI
-                <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg>
+            <div class="nav-dropdown-trigger {{ request()->is('tentang*') ? 'aktif' : '' }}" onclick="toggleDrop('drop-tentang', event)">
+                Tentang KAMMI <svg width="10" height="10" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg>
             </div>
             <div class="nav-dropdown-panel">
-                <a href="{{ route('tentang.sejarah') }}" class="{{ request()->is('tentang/sejarah') ? 'aktif' : '' }}">
-                    <span class="drop-icon">📖</span> Sejarah KAMMI Tasikmalaya
-                </a>
-                <a href="{{ route('tentang.visi-misi') }}" class="{{ request()->is('tentang/visi-misi') ? 'aktif' : '' }}">
-                    <span class="drop-icon">🎯</span> Visi & Misi
-                </a>
+                <a href="{{ route('tentang.sejarah') }}" class="{{ request()->routeIs('tentang.sejarah') ? 'aktif' : '' }}">📖 Sejarah KAMMI</a>
+                <a href="{{ route('tentang.visi-misi') }}" class="{{ request()->routeIs('tentang.visi-misi') ? 'aktif' : '' }}">🎯 Visi & Misi</a>
                 <div class="drop-divider"></div>
-                <a href="{{ route('tentang.mars') }}" class="{{ request()->is('tentang/mars') ? 'aktif' : '' }}">
-                    <span class="drop-icon">🎵</span> Mars KAMMI
-                </a>
-                <a href="{{ route('tentang.hymne') }}" class="{{ request()->is('tentang/hymne') ? 'aktif' : '' }}">
-                    <span class="drop-icon">🎶</span> Hymne KAMMI
-                </a>
+                <a href="{{ route('tentang.mars') }}" class="{{ request()->routeIs('tentang.mars') ? 'aktif' : '' }}">🎵 Mars KAMMI</a>
+                <a href="{{ route('tentang.hymne') }}" class="{{ request()->routeIs('tentang.hymne') ? 'aktif' : '' }}">🎶 Hymne KAMMI</a>
             </div>
         </div>
 
-        {{-- Kontak --}}
-        <a href="{{ route('kontak.index') }}" class="{{ request()->is('kontak*') ? 'aktif' : '' }}">Kontak</a>
+        <a href="{{ route('kontak.index') }}" class="{{ request()->routeIs('kontak.index') ? 'aktif' : '' }}">Kontak</a>
 
-        {{-- AUTH --}}
         @guest
-            <a href="{{ route('login') }}" class="btn-masuk">
-                <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M15 3h4a2 2 0 012 2v14a2 2 0 01-2 2h-4"/><polyline points="10 17 15 12 10 7"/><line x1="15" y1="12" x2="3" y2="12"/></svg>
-                Masuk
-            </a>
+            <a href="{{ route('login') }}" class="btn-masuk">Masuk</a>
         @else
+            @php /** @var \App\Models\User $user */ $user = auth()->user(); @endphp
             <div class="user-dropdown" id="drop-user">
-                <div class="user-trigger" onclick="toggleDrop('drop-user')">
-                    <div class="user-avatar">
-                        @if(Auth::user()->avatar)
-                            <img src="{{ Auth::user()->avatar }}" alt="">
-                        @else
-                            {{ strtoupper(substr(Auth::user()->name, 0, 1)) }}
-                        @endif
-                    </div>
-                    {{ Str::limit(Auth::user()->name, 14) }}
-                    <svg width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg>
+                <div class="user-trigger" onclick="toggleDrop('drop-user', event)">
+                    <div class="user-avatar"><img src="{{ $user->avatar_url }}" alt="Avatar"></div>
+                    <span>{{ str()->limit($user->name, 10) }}</span>
+                    <svg width="10" height="10" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg>
                 </div>
                 <div class="user-panel">
                     <div class="user-panel-header">
-                        <div class="user-panel-name">{{ Auth::user()->name }}</div>
-                        <div class="user-panel-email">{{ Auth::user()->email }}</div>
+                        <span class="user-name">{{ $user->name }}</span>
+                        <span class="user-email">{{ $user->email }}</span>
+                        <span class="user-role-badge">{{ $user->role }}</span>
                     </div>
-                    @if(Auth::user()->hasRole('admin') || Auth::user()->hasRole('super_admin'))
-                        <a href="{{ url('/admin') }}">
+                    
+                    {{-- Menu Dashboard --}}
+                    @if($user->hasRole('admin') || $user->hasRole('super_admin'))
+                        <a href="{{ url('/admin') }}" style="color: var(--emas);">
                             <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
-                            Dashboard Admin
+                            Panel Admin
+                        </a>
+                    @else
+                        <a href="{{ route('dashboard') }}" class="{{ request()->routeIs('dashboard') ? 'aktif' : '' }}">
+                            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
+                            Dashboard Saya
                         </a>
                     @endif
-                    <a href="{{ route('profil.index') }}">
-                        <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-                        Profil Saya
+
+                    <a href="{{ route('profil.index') }}" class="{{ request()->routeIs('profil.index') ? 'aktif' : '' }}">
+                        <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>
+                        Edit Profil
                     </a>
+
+                    <div class="drop-divider"></div>
+
                     <form method="POST" action="{{ route('logout') }}">
                         @csrf
                         <button type="submit" class="logout-btn">
-                            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+                            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/></svg>
                             Keluar
                         </button>
                     </form>
                 </div>
             </div>
         @endguest
-
-    </div>
-
-    <div class="nav-toggle" id="navToggle" onclick="document.getElementById('navMenu').classList.toggle('open')">
-        <span></span><span></span><span></span>
     </div>
 </nav>
 
-{{-- KONTEN --}}
-<div class="page-wrap">
-    {{ $slot }}
-</div>
+<div class="page-wrap">{{ $slot }}</div>
 
-{{-- FOOTER --}}
 <footer class="footer-publik">
-    <div class="footer-inner">
-        <div class="footer-top">
+    <div class="footer-inner section-inner">
+        <div class="footer-top" style="display:grid; grid-template-columns:1.5fr 1fr 1fr; gap:60px;">
             <div>
-                <svg width="44" height="55" viewBox="0 0 120 150" style="opacity:.6;" xmlns="http://www.w3.org/2000/svg"><use href="#payung-geulis"/></svg>
+                <svg width="50" height="65" viewBox="0 0 120 150" style="opacity:.8; margin-bottom:15px;"><use href="#payung-geulis"/></svg>
                 <div class="footer-brand-name">KAMMI Daerah Tasikmalaya</div>
-                <p class="footer-brand-desc">Kesatuan Aksi Mahasiswa Muslim Indonesia Daerah Tasikmalaya — bergerak untuk keadilan, kebenaran, dan kebermanfaatan umat di Priangan Timur.</p>
+                <p style="font-size:14px; line-height:1.7;">Kesatuan Aksi Mahasiswa Muslim Indonesia (KAMMI) Daerah Tasikmalaya — Bergerak menghadirkan solusi untuk umat dan bangsa di bumi Priangan Timur.</p>
             </div>
             <div class="footer-col">
-                <div class="footer-col-title">Navigasi</div>
+                <div class="footer-col-title">Navigasi Utama</div>
                 <ul>
                     <li><a href="{{ url('/') }}">Beranda</a></li>
+                    <li><a href="{{ route('kaderisasi.index') }}">Informasi Kaderisasi</a></li>
                     <li><a href="{{ route('publikasi.index') }}">Berita & Publikasi</a></li>
-                    <li><a href="{{ route('isu-daerah.index') }}">Isu Daerah</a></li>
-                    <li><a href="{{ route('kaderisasi.index') }}">Daurah Marhalah</a></li>
-                    <li><a href="{{ route('komisariat.index') }}">Komisariat</a></li>
-                    <li><a href="{{ route('agenda.index') }}">Agenda</a></li>
+                    <li><a href="{{ route('isu-daerah.index') }}">Advokasi Isu Daerah</a></li>
                 </ul>
             </div>
             <div class="footer-col">
-                <div class="footer-col-title">Tentang</div>
+                <div class="footer-col-title">Organisasi</div>
                 <ul>
                     <li><a href="{{ route('tentang.sejarah') }}">Sejarah KAMMI</a></li>
                     <li><a href="{{ route('tentang.visi-misi') }}">Visi & Misi</a></li>
                     <li><a href="{{ route('bkm.index') }}">BKM Kemuslimahan</a></li>
-                    <li><a href="{{ route('kontak.index') }}">Kontak Kami</a></li>
-                    <li><a href="{{ route('login') }}">Login Admin</a></li>
+                    <li><a href="{{ url('/admin/login') }}">Login Admin</a></li>
                 </ul>
             </div>
         </div>
         <div class="footer-bottom">
-            <span>© {{ date('Y') }} KAMMI Daerah Tasikmalaya. Hak cipta dilindungi.</span>
+            <span>© {{ date('Y') }} KAMMI Daerah Tasikmalaya. Semua Hak Dilindungi.</span>
             <span>Kota Tasikmalaya, Jawa Barat</span>
         </div>
     </div>
 </footer>
 
 <script>
-// Navbar scroll
 const nav = document.getElementById('navPublik');
-window.addEventListener('scroll', () => nav.classList.toggle('scrolled', scrollY > 40));
+window.addEventListener('scroll', () => {
+    if (nav) nav.classList.toggle('scrolled', window.scrollY > 40);
+});
 
-// Dropdown toggle
-function toggleDrop(id) {
-    const el = document.getElementById(id);
-    const isOpen = el.classList.contains('open');
-    // Tutup semua dropdown lain
-    document.querySelectorAll('.nav-dropdown, .user-dropdown').forEach(d => d.classList.remove('open'));
-    if (!isOpen) el.classList.add('open');
+function toggleNav() { 
+    const menu = document.getElementById('navMenu');
+    if (menu) menu.classList.toggle('open'); 
 }
 
-// Tutup dropdown kalau klik di luar
+function closeNav() { 
+    const menu = document.getElementById('navMenu');
+    if (menu) menu.classList.remove('open'); 
+}
+
+function toggleDrop(id, event) {
+    if (event) event.stopPropagation();
+    document.querySelectorAll('.nav-dropdown, .user-dropdown').forEach(d => {
+        if (d.id !== id) d.classList.remove('open');
+    });
+    const el = document.getElementById(id);
+    if (el) el.classList.toggle('open');
+}
+
 document.addEventListener('click', e => {
     if (!e.target.closest('.nav-dropdown') && !e.target.closest('.user-dropdown')) {
         document.querySelectorAll('.nav-dropdown, .user-dropdown').forEach(d => d.classList.remove('open'));
     }
+    const menu = document.getElementById('navMenu');
+    const toggle = document.getElementById('navToggle');
+    if (menu && menu.classList.contains('open') && !menu.contains(e.target) && toggle && !toggle.contains(e.target)) {
+        menu.classList.remove('open');
+    }
 });
 
-// Fade up observer
 const obs = new IntersectionObserver(entries => {
     entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
 }, { threshold: 0.1 });
 document.querySelectorAll('.fade-up').forEach(el => obs.observe(el));
 </script>
-{{ $scripts ?? '' }}
+{!! $scripts !!}
 </body>
 </html>

@@ -1,114 +1,63 @@
 <x-publik>
     <x-slot name="title">BKM — Biro Kemuslimahan KAMMI Tasikmalaya</x-slot>
 
-    <x-slot name="styles">
-    <style>
-        .sec { padding:56px 2.5rem; }
-        .inner { max-width:1200px; margin:0 auto; }
-        .inner-sm { max-width:800px; margin:0 auto; }
-
-        /* Hero BKM */
-        .bkm-hero { background:var(--merah-tua); border-radius:20px; padding:52px 48px; position:relative; overflow:hidden; margin-bottom:56px; }
-        .bkm-hero::before { content:''; position:absolute; inset:0; background-image:repeating-linear-gradient(135deg,rgba(201,168,76,.04) 0,rgba(201,168,76,.04) 1px,transparent 1px,transparent 24px); }
-        .bkm-hero::after { content:''; position:absolute; top:-100px; right:-100px; width:320px; height:320px; border-radius:50%; background:radial-gradient(circle,rgba(201,168,76,.12) 0%,transparent 68%); }
-        .bkm-hero-inner { position:relative; z-index:1; display:grid; grid-template-columns:1fr 1fr; gap:40px; align-items:center; }
-        .bkm-tag { display:inline-flex; align-items:center; gap:7px; background:rgba(201,168,76,.15); border:1px solid rgba(201,168,76,.35); color:var(--emas); font-size:11px; font-weight:600; letter-spacing:.1em; text-transform:uppercase; padding:4px 14px; border-radius:100px; margin-bottom:16px; }
-        .bkm-hero h2 { font-family:'Playfair Display',serif; font-size:clamp(1.6rem,2.5vw,2.2rem); color:#fff9f0; line-height:1.25; margin-bottom:14px; }
-        .bkm-hero p  { font-size:14.5px; color:rgba(255,249,240,.65); line-height:1.8; }
-        .bkm-visual { background:rgba(255,249,240,.07); border:1px solid rgba(201,168,76,.2); border-radius:16px; padding:24px; }
-        .bkm-visual-title { font-size:10px; font-weight:700; letter-spacing:.12em; text-transform:uppercase; color:var(--emas); margin-bottom:16px; }
-        .bkm-pilar { display:flex; flex-direction:column; gap:10px; }
-        .bkm-pilar-item { display:flex; align-items:center; gap:12px; background:rgba(255,249,240,.07); border-radius:10px; padding:12px 14px; }
-        .bkm-pilar-icon { font-size:20px; flex-shrink:0; }
-        .bkm-pilar-name { font-size:13px; font-weight:600; color:#fff9f0; }
-        .bkm-pilar-sub  { font-size:11.5px; color:rgba(255,249,240,.45); }
-
-        /* Program */
-        .prog-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:20px; margin-bottom:56px; }
-        .prog-card { background:white; border:1px solid #f0dada; border-radius:16px; padding:28px 24px; transition:all .3s; }
-        .prog-card:hover { transform:translateY(-3px); box-shadow:0 12px 32px rgba(139,26,26,.09); }
-        .prog-icon { width:48px; height:48px; background:#fdf2f2; border-radius:12px; display:flex; align-items:center; justify-content:center; font-size:22px; margin-bottom:16px; }
-        .prog-name { font-family:'Playfair Display',serif; font-size:1.05rem; color:var(--merah-tua); margin-bottom:8px; }
-        .prog-desc { font-size:13.5px; color:#7a5050; line-height:1.7; }
-
-        /* Form pendaftaran */
-        .form-section { background:white; border:1px solid #ede8e3; border-radius:20px; overflow:hidden; }
-        .form-header { background:var(--merah-tua); padding:28px 36px; position:relative; overflow:hidden; }
-        .form-header::before { content:''; position:absolute; inset:0; background-image:repeating-linear-gradient(135deg,rgba(201,168,76,.04) 0,rgba(201,168,76,.04) 1px,transparent 1px,transparent 24px); }
-        .form-header h2 { font-family:'Playfair Display',serif; font-size:1.3rem; color:#fff9f0; position:relative; z-index:1; }
-        .form-header p  { font-size:13.5px; color:rgba(255,249,240,.6); margin-top:5px; position:relative; z-index:1; }
-        .form-body { padding:36px; }
-        .form-grid { display:grid; grid-template-columns:1fr 1fr; gap:18px; }
-        .form-group { display:flex; flex-direction:column; gap:7px; }
-        .form-group.full { grid-column:1/-1; }
-        .form-label { font-size:13px; font-weight:600; color:#374151; }
-        .form-label .req { color:var(--merah); }
-        .form-input { border:1.5px solid #e5e7eb; border-radius:9px; padding:11px 14px; font-size:14px; font-family:inherit; color:var(--teks); transition:border-color .2s; background:white; }
-        .form-input:focus { outline:none; border-color:var(--merah); }
-        .form-input.error { border-color:#ef4444; }
-        .form-error { font-size:12px; color:#ef4444; }
-        .form-hint  { font-size:12px; color:#9ca3af; }
-        .btn-submit { background:var(--merah); color:white; border:none; border-radius:10px; padding:13px 32px; font-size:14.5px; font-weight:600; cursor:pointer; font-family:inherit; transition:all .2s; }
-        .btn-submit:hover { background:var(--merah-tua); transform:translateY(-1px); }
-
-        /* Catatan khusus akhwat */
-        .catatan-akhwat { background:#fdf6e3; border:1px solid rgba(201,168,76,.3); border-radius:12px; padding:16px 20px; margin-bottom:24px; display:flex; gap:12px; align-items:flex-start; }
-        .catatan-akhwat-icon { font-size:20px; flex-shrink:0; }
-        .catatan-akhwat p { font-size:13.5px; color:#78520a; line-height:1.7; }
-
-        @media(max-width:900px){
-            .bkm-hero-inner { grid-template-columns:1fr; }
-            .bkm-visual { display:none; }
-            .prog-grid { grid-template-columns:1fr; }
-            .form-grid { grid-template-columns:1fr; }
-            .form-body { padding:24px 20px; }
-        }
-    </style>
-    </x-slot>
-
     {{-- PAGE HEADER --}}
     <div class="page-header">
-        <svg style="position:absolute;right:-30px;top:10px;width:120px;opacity:.08;transform:rotate(15deg);" viewBox="0 0 120 150" xmlns="http://www.w3.org/2000/svg"><use href="#payung-geulis"/></svg>
-        <div class="page-header-inner">
+        <svg style="position:absolute;right:-50px;top:20px;width:240px;opacity:.05;transform:rotate(15deg);" viewBox="0 0 120 150"><use href="#payung-geulis"/></svg>
+        <svg style="position:absolute;left:-50px;bottom:20px;width:180px;opacity:.05;transform:rotate(-15deg);" viewBox="0 0 120 150"><use href="#payung-geulis"/></svg>
+        
+        <div class="page-header-inner fade-up">
             <div class="breadcrumb">
                 <a href="{{ url('/') }}">Beranda</a>
-                <span class="breadcrumb-sep">›</span>
-                <span>BKM</span>
+                <span>/</span>
+                <span class="current">BKM</span>
             </div>
-            <h1>Biro Kemuslimahan</h1>
-            <p>Divisi khusus kader akhwat KAMMI Daerah Tasikmalaya</p>
+            <h1 class="page-title">Biro Kemuslimahan</h1>
+            <p class="page-subtitle">Divisi khusus yang menaungi, memberdayakan, dan menggerakkan potensi kader akhwat KAMMI Daerah Tasikmalaya.</p>
         </div>
     </div>
 
-    <div class="sec">
-        <div class="inner">
+    <div class="section" style="background: var(--krem);">
+        <div class="section-inner">
 
             {{-- HERO BKM --}}
-            <div class="bkm-hero fade-up">
-                <div class="bkm-hero-inner">
+            <div class="fade-up" style="background:white; border-radius:24px; padding:48px; border:1px solid var(--border); box-shadow: 0 10px 40px rgba(0,0,0,0.03); margin-bottom:60px; position:relative; overflow:hidden;">
+                {{-- Decoration --}}
+                <svg style="position:absolute; right:0; bottom:0; width:300px; opacity:0.03; transform:rotate(-15deg);" viewBox="0 0 120 150"><use href="#payung-geulis"/></svg>
+
+                <div style="display:grid; grid-template-columns:1fr 1fr; gap:48px; align-items:center;">
                     <div>
-                        <div class="bkm-tag">Khusus Akhwat</div>
-                        <h2>Biro Kemuslimahan<br>KAMMI Tasikmalaya</h2>
-                        <p>BKM adalah divisi yang menaungi, memberdayakan, dan menggerakkan kader akhwat KAMMI Daerah Tasikmalaya dalam kegiatan dakwah, sosial, dan advokasi yang sesuai dengan nilai-nilai keislaman.</p>
+                        <div style="display:inline-flex; align-items:center; gap:8px; background:var(--merah-muda); border:1px solid var(--merah-terang); color:var(--merah); font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:0.05em; padding:6px 14px; border-radius:100px; margin-bottom:20px;">
+                            Khusus Akhwat
+                        </div>
+                        <h2 style="font-family:'Playfair Display',serif; font-size:32px; color:var(--merah-tua); margin-bottom:16px; line-height:1.2;">Wadah Pemberdayaan<br>Muslimah Negarawan</h2>
+                        <p style="font-size:16px; color:var(--teks-secondary); line-height:1.7; margin-bottom:32px;">BKM berkomitmen mencetak muslimah yang tidak hanya shalihah secara pribadi, tetapi juga berdaya, intelektual, dan berkontribusi nyata bagi masyarakat.</p>
+                        
+                        <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px;">
+                            <div style="display:flex; gap:12px; align-items:center; padding:12px; background:var(--krem); border-radius:12px;">
+                                <div style="width:40px; height:40px; background:white; border-radius:10px; display:flex; align-items:center; justify-content:center; font-size:20px;">📖</div>
+                                <div><div style="font-size:14px; font-weight:700; color:var(--teks);">Ruhiyah</div><div style="font-size:12px; color:var(--teks-secondary);">Kajian rutin</div></div>
+                            </div>
+                            <div style="display:flex; gap:12px; align-items:center; padding:12px; background:var(--krem); border-radius:12px;">
+                                <div style="width:40px; height:40px; background:white; border-radius:10px; display:flex; align-items:center; justify-content:center; font-size:20px;">💡</div>
+                                <div><div style="font-size:14px; font-weight:700; color:var(--teks);">Intelektual</div><div style="font-size:12px; color:var(--teks-secondary);">Diskusi isu</div></div>
+                            </div>
+                            <div style="display:flex; gap:12px; align-items:center; padding:12px; background:var(--krem); border-radius:12px;">
+                                <div style="width:40px; height:40px; background:white; border-radius:10px; display:flex; align-items:center; justify-content:center; font-size:20px;">🤝</div>
+                                <div><div style="font-size:14px; font-weight:700; color:var(--teks);">Sosial</div><div style="font-size:12px; color:var(--teks-secondary);">Aksi peduli</div></div>
+                            </div>
+                            <div style="display:flex; gap:12px; align-items:center; padding:12px; background:var(--krem); border-radius:12px;">
+                                <div style="width:40px; height:40px; background:white; border-radius:10px; display:flex; align-items:center; justify-content:center; font-size:20px;">🌸</div>
+                                <div><div style="font-size:14px; font-weight:700; color:var(--teks);">Ukhuwah</div><div style="font-size:12px; color:var(--teks-secondary);">Jaringan luas</div></div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="bkm-visual">
-                        <div class="bkm-visual-title">Fokus Program BKM</div>
-                        <div class="bkm-pilar">
-                            <div class="bkm-pilar-item">
-                                <div class="bkm-pilar-icon">📖</div>
-                                <div><div class="bkm-pilar-name">Pembinaan Ruhiyah</div><div class="bkm-pilar-sub">Kajian & tarbiyah akhwat</div></div>
-                            </div>
-                            <div class="bkm-pilar-item">
-                                <div class="bkm-pilar-icon">🤝</div>
-                                <div><div class="bkm-pilar-name">Sosial & Advokasi</div><div class="bkm-pilar-sub">Isu perempuan & keluarga</div></div>
-                            </div>
-                            <div class="bkm-pilar-item">
-                                <div class="bkm-pilar-icon">💡</div>
-                                <div><div class="bkm-pilar-name">Pengembangan Diri</div><div class="bkm-pilar-sub">Skill & kepemimpinan akhwat</div></div>
-                            </div>
-                            <div class="bkm-pilar-item">
-                                <div class="bkm-pilar-icon">🌸</div>
-                                <div><div class="bkm-pilar-name">Komunitas Akhwat</div><div class="bkm-pilar-sub">Silaturahmi antar komisariat</div></div>
+                    <div style="display:none; @media(min-width:900px){display:block;}">
+                        {{-- Placeholder visual (bisa diganti foto kegiatan nanti) --}}
+                        <div style="width:100%; height:320px; background:linear-gradient(135deg, #fdf2f2, #fff); border-radius:24px; border:1px solid #f0dada; display:flex; align-items:center; justify-content:center;">
+                            <div style="text-align:center; color:var(--merah-tua); opacity:0.2;">
+                                <svg width="80" height="80" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
+                                <div style="margin-top:10px; font-weight:700;">Foto Kegiatan BKM</div>
                             </div>
                         </div>
                     </div>
@@ -116,120 +65,120 @@
             </div>
 
             {{-- PROGRAM KERJA --}}
-            <div class="fade-up" style="margin-bottom:32px;">
-                <div style="display:inline-flex;align-items:center;gap:8px;font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--merah);margin-bottom:10px;">
-                    <span style="width:18px;height:2px;background:var(--emas);border-radius:2px;display:block;"></span>
-                    Program Kerja
-                </div>
-                <h2 style="font-family:'Playfair Display',serif;font-size:clamp(1.5rem,2vw,2rem);color:var(--merah-tua);margin-bottom:32px;">Kegiatan Unggulan BKM</h2>
-            </div>
-
-            <div class="prog-grid">
-                <div class="prog-card fade-up delay-1">
-                    <div class="prog-icon">📖</div>
-                    <div class="prog-name">Halaqah Akhwat</div>
-                    <p class="prog-desc">Kajian rutin mingguan untuk pembinaan ruhiyah dan pemahaman Islam kader akhwat KAMMI.</p>
-                </div>
-                <div class="prog-card fade-up delay-2">
-                    <div class="prog-icon">🎓</div>
-                    <div class="prog-name">Sekolah Muslimah</div>
-                    <p class="prog-desc">Program pelatihan dan pengembangan diri akhwat meliputi kepemimpinan, public speaking, dan literasi.</p>
-                </div>
-                <div class="prog-card fade-up delay-3">
-                    <div class="prog-icon">🤲</div>
-                    <div class="prog-name">Bakti Sosial Akhwat</div>
-                    <p class="prog-desc">Kegiatan sosial dan pemberdayaan perempuan di masyarakat Tasikmalaya dan Priangan Timur.</p>
-                </div>
-                <div class="prog-card fade-up delay-1">
-                    <div class="prog-icon">✍️</div>
-                    <div class="prog-name">Pelatihan Literasi</div>
-                    <p class="prog-desc">Pelatihan menulis opini, jurnalistik, dan media sosial untuk kader akhwat yang produktif.</p>
-                </div>
-                <div class="prog-card fade-up delay-2">
-                    <div class="prog-icon">🌸</div>
-                    <div class="prog-name">Gathering Akhwat</div>
-                    <p class="prog-desc">Silaturahmi dan konsolidasi kader akhwat antar komisariat se-Tasikmalaya.</p>
-                </div>
-                <div class="prog-card fade-up delay-3">
-                    <div class="prog-icon">📣</div>
-                    <div class="prog-name">Advokasi Perempuan</div>
-                    <p class="prog-desc">Pemantauan dan advokasi isu-isu perempuan dan keluarga di wilayah Priangan Timur.</p>
-                </div>
-            </div>
-
-        </div>
-
-        {{-- FORM PENDAFTARAN --}}
-        <div class="inner-sm">
-            <div class="form-section fade-up">
-                <div class="form-header">
-                    <svg style="position:absolute;right:20px;top:10px;width:80px;opacity:.12;transform:rotate(15deg);z-index:0;" viewBox="0 0 120 150" xmlns="http://www.w3.org/2000/svg"><use href="#payung-geulis"/></svg>
-                    <h2>Daftar Bergabung BKM</h2>
-                    <p>Khusus kader akhwat (perempuan) KAMMI Daerah Tasikmalaya</p>
-                </div>
-                <div class="form-body">
-                    <div class="catatan-akhwat">
-                        <div class="catatan-akhwat-icon">ℹ️</div>
-                        <p>Formulir ini khusus untuk kader <strong>akhwat (perempuan)</strong>. Setelah mendaftar, koordinator BKM akan menghubungi kamu via WhatsApp untuk proses selanjutnya.</p>
+            <div class="fade-up" style="margin-bottom:60px;">
+                <div class="sec-label">Program Unggulan</div>
+                <h2 class="sec-title">Kegiatan BKM Tasikmalaya</h2>
+                
+                <div class="grid-3">
+                    <div class="card-kammi fade-up delay-1" style="height:auto;">
+                        <div class="card-body">
+                            <div style="width:48px; height:48px; background:var(--merah-muda); border-radius:12px; display:flex; align-items:center; justify-content:center; font-size:24px; color:var(--merah); margin-bottom:16px;">📖</div>
+                            <h3 class="card-title">Halaqah Akhwat</h3>
+                            <p class="card-desc" style="margin-bottom:0;">Kajian rutin mingguan sebagai sarana pembinaan ruhiyah, perbaikan bacaan Quran, dan penguatan pemahaman keislaman kader.</p>
+                        </div>
                     </div>
-
-                    <form method="POST" action="{{ route('bkm.daftar') }}">
-                        @csrf
-                        <div class="form-grid">
-
-                            <div class="form-group full">
-                                <label class="form-label">Nama Lengkap <span class="req">*</span></label>
-                                <input type="text" name="nama" value="{{ old('nama') }}" class="form-input {{ $errors->has('nama') ? 'error' : '' }}" placeholder="Nama lengkap kamu" required>
-                                @error('nama')<span class="form-error">{{ $message }}</span>@enderror
-                            </div>
-
-                            <div class="form-group">
-                                <label class="form-label">Email <span class="req">*</span></label>
-                                <input type="email" name="email" value="{{ old('email') }}" class="form-input {{ $errors->has('email') ? 'error' : '' }}" placeholder="email@kampus.ac.id" required>
-                                @error('email')<span class="form-error">{{ $message }}</span>@enderror
-                            </div>
-
-                            <div class="form-group">
-                                <label class="form-label">No. HP / WhatsApp <span class="req">*</span></label>
-                                <input type="text" name="no_hp" value="{{ old('no_hp') }}" class="form-input {{ $errors->has('no_hp') ? 'error' : '' }}" placeholder="08xxxxxxxxxx" required>
-                                @error('no_hp')<span class="form-error">{{ $message }}</span>@enderror
-                            </div>
-
-                            <div class="form-group">
-                                <label class="form-label">Nama Kampus <span class="req">*</span></label>
-                                <input type="text" name="kampus" value="{{ old('kampus') }}" class="form-input {{ $errors->has('kampus') ? 'error' : '' }}" placeholder="Universitas / Institut" required>
-                                @error('kampus')<span class="form-error">{{ $message }}</span>@enderror
-                            </div>
-
-                            <div class="form-group">
-                                <label class="form-label">Komisariat <span class="req">*</span></label>
-                                <input type="text" name="komisariat" value="{{ old('komisariat') }}" class="form-input {{ $errors->has('komisariat') ? 'error' : '' }}" placeholder="Komisariat KAMMI di kampus kamu" required>
-                                <span class="form-hint">Jika belum ada, isi nama kampus</span>
-                                @error('komisariat')<span class="form-error">{{ $message }}</span>@enderror
-                            </div>
-
-                            <div class="form-group full">
-                                <label class="form-label">Motivasi / Pesan (opsional)</label>
-                                <textarea name="pesan" rows="3" class="form-input" placeholder="Ceritakan motivasi kamu bergabung BKM...">{{ old('pesan') }}</textarea>
-                            </div>
-
+                    <div class="card-kammi fade-up delay-2" style="height:auto;">
+                        <div class="card-body">
+                            <div style="width:48px; height:48px; background:#fef3c7; border-radius:12px; display:flex; align-items:center; justify-content:center; font-size:24px; color:#b45309; margin-bottom:16px;">🎓</div>
+                            <h3 class="card-title">Sekolah Muslimah</h3>
+                            <p class="card-desc" style="margin-bottom:0;">Pelatihan intensif pengembangan soft-skill, kepemimpinan perempuan, manajemen diri, dan wawasan kebangsaan.</p>
                         </div>
-
-                        <div style="margin-top:24px;display:flex;justify-content:flex-end;">
-                            <button type="submit" class="btn-submit">
-                                Kirim Pendaftaran BKM
-                            </button>
+                    </div>
+                    <div class="card-kammi fade-up delay-3" style="height:auto;">
+                        <div class="card-body">
+                            <div style="width:48px; height:48px; background:#dcfce7; border-radius:12px; display:flex; align-items:center; justify-content:center; font-size:24px; color:#15803d; margin-bottom:16px;">🤲</div>
+                            <h3 class="card-title">Bakti Sosial</h3>
+                            <p class="card-desc" style="margin-bottom:0;">Aksi nyata kepedulian sosial, pemberdayaan masyarakat, dan advokasi isu-isu perempuan di Tasikmalaya.</p>
                         </div>
-                    </form>
+                    </div>
                 </div>
             </div>
+
+            {{-- FORM PENDAFTARAN --}}
+            <div class="inner-sm fade-up delay-1" style="max-width:800px; margin:0 auto;">
+                <div style="background:white; border-radius:24px; border:1px solid var(--border); overflow:hidden; box-shadow: 0 10px 40px rgba(0,0,0,0.03);">
+                    <div style="background:var(--merah-tua); padding:32px 40px; text-align:center; position:relative; overflow:hidden;">
+                        <svg style="position:absolute; left:50%; top:50%; transform:translate(-50%,-50%); width:300px; opacity:0.05;" viewBox="0 0 120 150"><use href="#payung-geulis"/></svg>
+                        <h2 style="font-family:'Playfair Display',serif; font-size:24px; color:white; margin-bottom:8px; position:relative; z-index:1;">Daftar Anggota BKM</h2>
+                        <p style="font-size:14px; color:rgba(255,255,255,0.7); position:relative; z-index:1;">Formulir khusus kader akhwat KAMMI Daerah Tasikmalaya</p>
+                    </div>
+                    
+                    <div style="padding:40px;">
+                        <div style="background:var(--emas-muda); border:1px solid #fcd34d; border-radius:12px; padding:16px; margin-bottom:32px; display:flex; gap:12px; align-items:flex-start;">
+                            <div style="color:#b45309; font-size:20px;">ℹ️</div>
+                            <p style="font-size:13px; color:#92400e; line-height:1.6; margin:0;">Pastikan kamu sudah terdaftar sebagai kader (lulus minimal DM 1). Tim BKM akan memverifikasi data dan menghubungimu via WhatsApp.</p>
+                        </div>
+
+                        <form method="POST" action="{{ route('bkm.daftar') }}">
+                            @csrf
+                            <div style="display:grid; grid-template-columns:1fr 1fr; gap:20px;">
+                                <div style="display:flex; flex-direction:column; gap:8px; grid-column:1/-1;">
+                                    <label style="font-size:13px; font-weight:700; color:var(--teks);">Nama Lengkap <span style="color:var(--merah);">*</span></label>
+                                    <input type="text" name="nama" value="{{ old('nama') }}" class="form-input {{ $errors->has('nama') ? 'error' : '' }}" placeholder="Sesuai KTP" required>
+                                    @error('nama')<span style="font-size:12px; color:#ef4444;">{{ $message }}</span>@enderror
+                                </div>
+
+                                <div style="display:flex; flex-direction:column; gap:8px;">
+                                    <label style="font-size:13px; font-weight:700; color:var(--teks);">Email <span style="color:var(--merah);">*</span></label>
+                                    <input type="email" name="email" value="{{ old('email') }}" class="form-input {{ $errors->has('email') ? 'error' : '' }}" placeholder="email@kamus.ac.id" required>
+                                    @error('email')<span style="font-size:12px; color:#ef4444;">{{ $message }}</span>@enderror
+                                </div>
+
+                                <div style="display:flex; flex-direction:column; gap:8px;">
+                                    <label style="font-size:13px; font-weight:700; color:var(--teks);">No. WhatsApp <span style="color:var(--merah);">*</span></label>
+                                    <input type="text" name="no_hp" value="{{ old('no_hp') }}" class="form-input {{ $errors->has('no_hp') ? 'error' : '' }}" placeholder="08xxxxxxxxxx" required>
+                                    @error('no_hp')<span style="font-size:12px; color:#ef4444;">{{ $message }}</span>@enderror
+                                </div>
+
+                                <div style="display:flex; flex-direction:column; gap:8px;">
+                                    <label style="font-size:13px; font-weight:700; color:var(--teks);">Asal Kampus <span style="color:var(--merah);">*</span></label>
+                                    <input type="text" name="kampus" value="{{ old('kampus') }}" class="form-input {{ $errors->has('kampus') ? 'error' : '' }}" placeholder="Nama Universitas / Institut" required>
+                                    @error('kampus')<span style="font-size:12px; color:#ef4444;">{{ $message }}</span>@enderror
+                                </div>
+
+                                <div style="display:flex; flex-direction:column; gap:8px;">
+                                    <label style="font-size:13px; font-weight:700; color:var(--teks);">Komisariat <span style="color:var(--merah);">*</span></label>
+                                    <input type="text" name="komisariat" value="{{ old('komisariat') }}" class="form-input {{ $errors->has('komisariat') ? 'error' : '' }}" placeholder="Nama Komisariat" required>
+                                    @error('komisariat')<span style="font-size:12px; color:#ef4444;">{{ $message }}</span>@enderror
+                                </div>
+
+                                <div style="display:flex; flex-direction:column; gap:8px; grid-column:1/-1;">
+                                    <label style="font-size:13px; font-weight:700; color:var(--teks);">Motivasi (Opsional)</label>
+                                    <textarea name="pesan" rows="3" class="form-input" placeholder="Apa harapan kamu bergabung di BKM?">{{ old('pesan') }}</textarea>
+                                </div>
+                            </div>
+
+                            <div style="margin-top:32px; text-align:right;">
+                                <button type="submit" class="btn-merah" style="width:100%;">
+                                    Kirim Pendaftaran
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
         </div>
     </div>
+
+    <style>
+        .form-input { width:100%; border:1px solid #e5e7eb; border-radius:10px; padding:12px 16px; font-family:inherit; font-size:14px; color:var(--teks); transition:border-color 0.2s; outline:none; }
+        .form-input:focus { border-color:var(--merah); }
+        .form-input.error { border-color:#ef4444; }
+
+        @media(max-width:900px){
+            div[style*="grid-template-columns:1fr 1fr"] { grid-template-columns:1fr !important; gap: 32px !important; }
+            .grid-3 { grid-template-columns:1fr !important; }
+            .form-grid { grid-template-columns:1fr !important; }
+        }
+    </style>
 
     @if(session('success'))
-    <div style="position:fixed;bottom:24px;right:24px;background:#166534;color:white;padding:16px 24px;border-radius:12px;font-size:14px;font-weight:600;z-index:999;box-shadow:0 8px 24px rgba(0,0,0,.2);">
-        ✓ {{ session('success') }}
+    <div style="position:fixed;bottom:30px;right:30px;background:#15803d;color:white;padding:16px 24px;border-radius:12px;font-size:14px;font-weight:600;z-index:999;box-shadow:0 10px 30px rgba(0,0,0,.2); display:flex; align-items:center; gap:10px; animation: slideUp 0.4s ease-out;">
+        <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+        {{ session('success') }}
     </div>
-    <script>setTimeout(()=>document.querySelector('[style*="position:fixed"]')?.remove(),4000)</script>
+    <style>@keyframes slideUp { from { transform: translateY(20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }</style>
+    <script>setTimeout(()=>document.querySelector('[style*="position:fixed"]')?.remove(),5000)</script>
     @endif
 </x-publik>

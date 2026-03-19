@@ -54,16 +54,14 @@ class KontakResource extends Resource
                         'warning' => 'dibaca',
                         'success' => 'dibalas',
                     ])
-                    ->formatStateUsing(fn ($s) => match($s) {
-                        'baru'=>'Baru','dibaca'=>'Dibaca', default=>'Dibalas'
-                    }),
+                    ->sortable(),
                 Tables\Columns\TextColumn::make('nama')->searchable(),
                 Tables\Columns\TextColumn::make('email')->searchable(),
                 Tables\Columns\TextColumn::make('subjek')->limit(40),
                 Tables\Columns\TextColumn::make('created_at')
-                    ->label('Diterima')->dateTime('d M Y, H:i')->sortable(),
-            ])
-            ->defaultSort('created_at', 'desc')
+                    ->label('Diterima')->dateTime('d M Y')->sortable(),
+                ])
+                ->defaultSort('created_at', 'desc')
             ->filters([
                 Tables\Filters\SelectFilter::make('status')
                     ->options(['baru'=>'Baru','dibaca'=>'Dibaca','dibalas'=>'Dibalas']),

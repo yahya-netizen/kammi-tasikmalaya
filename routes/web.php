@@ -59,9 +59,13 @@ Route::get('/auth/google',          [GoogleController::class, 'redirect'])->name
 Route::get('/auth/google/callback', [GoogleController::class, 'callback'])->name('auth.google.callback');
 
 // -----------------------------------------------
-// PROFIL USER (harus login)
+// PROFIL & DASHBOARD USER (harus login)
 // -----------------------------------------------
 Route::middleware('auth')->group(function () {
+    Route::get('/dashboard', function () {
+        return view('dashboard');
+    })->name('dashboard');
+
     Route::get('/profil',    [ProfilController::class, 'index'])->name('profil.index');
     Route::patch('/profil',  [ProfilController::class, 'update'])->name('profil.update');
 });
