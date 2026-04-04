@@ -20,22 +20,22 @@
     
     <style>
         :root {
-            /* Palette KAMMI */
-            --merah: #8b1a1a; 
-            --merah-tua: #5c0f0f; 
-            --merah-terang: #c0392b;
-            --merah-muda: #fdf2f2; 
+            /* Palette KAMMI - Updated to #FF0000 Base */
+            --merah: #FF0000; 
+            --merah-tua: #8b0000; 
+            --merah-terang: #ff4d4d;
+            --merah-muda: #fff5f5; 
             
             --emas: #c9a84c; 
             --emas-tua: #b8943d;
             --emas-muda: #fef3c7;
 
-            --krem: #faf7f2; 
+            --krem: #fcfaf7; 
             --putih-transparan: rgba(255, 255, 255, 0.9);
             
-            --teks: #2c1810;
-            --teks-secondary: #6b4040;
-            --border: rgba(201,168,76,0.18);
+            --teks: #1a0f0a;
+            --teks-secondary: #5a3e3e;
+            --border: rgba(201,168,76,0.15);
         }
 
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -259,9 +259,9 @@
     <symbol id="payung-geulis" viewBox="0 0 120 150">
         <ellipse cx="60" cy="12" rx="4" ry="5" fill="#c9a84c"/>
         <path d="M60 8 Q63 2 60 0 Q57 2 60 8Z" fill="#c9a84c"/>
-        <line x1="60" y1="14" x2="10"  y2="70" stroke="#5c0f0f" stroke-width="1.2" stroke-linecap="round"/>
-        <line x1="60" y1="14" x2="110" y2="70" stroke="#5c0f0f" stroke-width="1.2" stroke-linecap="round"/>
-        <path d="M10 70 Q16 54 22 60 Q28 66 34 54 Q40 42 46 52 Q50 62 54 50 Q57 40 60 14 Q63 40 66 50 Q70 62 74 52 Q80 42 86 54 Q92 66 98 60 Q104 54 110 70 Q98 80 88 74 Q80 82 74 72 Q68 66 60 74 Q52 66 46 72 Q40 82 32 74 Q22 80 10 70Z" fill="#8b1a1a" stroke="#5c0f0f" stroke-width="1"/>
+        <line x1="60" y1="14" x2="10"  y2="70" stroke="#8b0000" stroke-width="1.2" stroke-linecap="round"/>
+        <line x1="60" y1="14" x2="110" y2="70" stroke="#8b0000" stroke-width="1.2" stroke-linecap="round"/>
+        <path d="M10 70 Q16 54 22 60 Q28 66 34 54 Q40 42 46 52 Q50 62 54 50 Q57 40 60 14 Q63 40 66 50 Q70 62 74 52 Q80 42 86 54 Q92 66 98 60 Q104 54 110 70 Q98 80 88 74 Q80 82 74 72 Q68 66 60 74 Q52 66 46 72 Q40 82 32 74 Q22 80 10 70Z" fill="#FF0000" stroke="#8b0000" stroke-width="1"/>
         <path d="M10 70 Q16 78 22 74 Q28 70 34 78 Q40 86 46 78 Q52 70 58 78 Q64 86 70 78 Q76 70 82 78 Q88 86 94 78 Q100 70 106 74 Q112 78 110 70" fill="none" stroke="#c9a84c" stroke-width="1.8" stroke-linecap="round"/>
         <line x1="60" y1="145" x2="60" y2="72" stroke="#c9a84c" stroke-width="3.5" stroke-linecap="round"/>
     </symbol>
