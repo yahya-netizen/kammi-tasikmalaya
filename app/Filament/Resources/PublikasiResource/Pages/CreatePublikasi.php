@@ -9,4 +9,11 @@ use Filament\Resources\Pages\CreateRecord;
 class CreatePublikasi extends CreateRecord
 {
     protected static string $resource = PublikasiResource::class;
+
+    protected function mutateFormDataBeforeCreate(array $data): array
+    {
+        $data['user_id'] = auth()->id();
+
+        return $data;
+    }
 }

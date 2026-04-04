@@ -16,4 +16,13 @@ class EditIsuDaerah extends EditRecord
             Actions\DeleteAction::make(),
         ];
     }
+
+    protected function mutateFormDataBeforeSave(array $data): array
+    {
+        if (empty($data['user_id'])) {
+            $data['user_id'] = auth()->id();
+        }
+
+        return $data;
+    }
 }
