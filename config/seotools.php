@@ -15,8 +15,8 @@ return [
             'description'  => 'Situs resmi Kesatuan Aksi Mahasiswa Muslim Indonesia Daerah Tasikmalaya', // set false to total remove
             'separator'    => ' - ',
             'keywords'     => ['kammi', 'tasikmalaya', 'mahasiswa', 'muslim', 'pergerakan'],
-            'canonical'    => current, // Set to null or 'full' to use Url::full(), set to 'current' to use Url::current(), set false to total remove
-            'robots'       => all, // Set to 'all', 'none' or any combination of index/noindex and follow/nofollow
+            'canonical'    => 'current', // Set to null or 'full' to use Url::full(), set to 'current' to use Url::current(), set false to total remove
+            'robots'       => 'all', // Set to 'all', 'none' or any combination of index/noindex and follow/nofollow
         ],
         /*
          * Webmaster tags are always added.
@@ -67,3 +67,4 @@ return [
         ],
     ],
 ];
+        
