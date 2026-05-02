@@ -2,20 +2,11 @@
     <x-slot name="title">Isu Daerah — KAMMI Daerah Tasikmalaya</x-slot>
 
     {{-- PAGE HEADER --}}
-    <div class="page-header">
-        <svg style="position:absolute;right:-50px;top:20px;width:240px;opacity:.05;transform:rotate(15deg);" viewBox="0 0 120 150"><use href="#payung-geulis"/></svg>
-        <svg style="position:absolute;left:-50px;bottom:20px;width:180px;opacity:.05;transform:rotate(-15deg);" viewBox="0 0 120 150"><use href="#payung-geulis"/></svg>
-        
-        <div class="page-header-inner fade-up">
-            <div class="breadcrumb">
-                <a href="{{ url('/') }}">Beranda</a>
-                <span>/</span>
-                <span class="current">Isu Daerah</span>
-            </div>
-            <h1 class="page-title">Isu Daerah & Advokasi</h1>
-            <p class="page-subtitle">Pemantauan dan advokasi isu-isu publik strategis di Tasikmalaya dan Priangan Timur untuk mendorong kebijakan yang berpihak pada rakyat.</p>
-        </div>
-    </div>
+    <x-page-header 
+        title="Isu Daerah & Advokasi" 
+        subtitle="Pemantauan dan advokasi isu-isu publik strategis di Tasikmalaya dan Priangan Timur untuk mendorong kebijakan yang berpihak pada rakyat."
+        :breadcrumb="['Isu Daerah' => route('isu-daerah.index')]"
+    />
 
     <div class="section" style="background: var(--krem);">
         <div class="section-inner">

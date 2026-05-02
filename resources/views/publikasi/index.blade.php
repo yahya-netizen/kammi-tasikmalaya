@@ -2,20 +2,11 @@
     <x-slot name="title">Berita & Publikasi — KAMMI Daerah Tasikmalaya</x-slot>
 
     {{-- PAGE HEADER --}}
-    <div class="page-header">
-        <svg style="position:absolute;right:-50px;top:20px;width:240px;opacity:.05;transform:rotate(15deg);" viewBox="0 0 120 150"><use href="#payung-geulis"/></svg>
-        <svg style="position:absolute;left:-50px;bottom:20px;width:180px;opacity:.05;transform:rotate(-15deg);" viewBox="0 0 120 150"><use href="#payung-geulis"/></svg>
-        
-        <div class="page-header-inner fade-up">
-            <div class="breadcrumb">
-                <a href="{{ url('/') }}">Beranda</a>
-                <span>/</span>
-                <span class="current">Publikasi</span>
-            </div>
-            <h1 class="page-title">Berita & Publikasi</h1>
-            <p class="page-subtitle">Informasi terkini, opini kader, laporan kegiatan, dan gagasan KAMMI Daerah Tasikmalaya untuk umat dan bangsa.</p>
-        </div>
-    </div>
+    <x-page-header 
+        title="Berita & Publikasi" 
+        subtitle="Informasi terkini, opini kader, laporan kegiatan, dan gagasan KAMMI Daerah Tasikmalaya untuk umat dan bangsa."
+        :breadcrumb="['Publikasi' => route('publikasi.index')]"
+    />
 
     <div class="section" style="background: var(--krem);">
         <div class="section-inner">

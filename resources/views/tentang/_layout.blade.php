@@ -20,20 +20,11 @@
     </style>
     </x-slot>
 
-    <div class="page-header">
-        <svg style="position:absolute;right:-30px;top:10px;width:120px;opacity:.08;transform:rotate(15deg);" viewBox="0 0 120 150" xmlns="http://www.w3.org/2000/svg"><use href="#payung-geulis"/></svg>
-        <div class="page-header-inner">
-            <div class="breadcrumb">
-                <a href="{{ url('/') }}">Beranda</a>
-                <span class="breadcrumb-sep">›</span>
-                <span>{{ $konten?->judul ?? $judul }}</span>
-            </div>
-            <h1>{{ $konten?->judul ?? $judul }}</h1>
-            @if($konten?->subjudul)
-                <p>{{ $konten->subjudul }}</p>
-            @endif
-        </div>
-    </div>
+    <x-page-header 
+        :title="$konten?->judul ?? $judul" 
+        :subtitle="$konten?->subjudul ?? null"
+        :breadcrumb="[($konten?->judul ?? $judul) => request()->url()]"
+    />
 
     <div class="sec">
         <div class="inner">

@@ -2,20 +2,11 @@
     <x-slot name="title">Kontak & Rekrutmen — KAMMI Daerah Tasikmalaya</x-slot>
 
     {{-- PAGE HEADER --}}
-    <div class="page-header">
-        <svg style="position:absolute;right:-50px;top:20px;width:240px;opacity:.05;transform:rotate(15deg);" viewBox="0 0 120 150"><use href="#payung-geulis"/></svg>
-        <svg style="position:absolute;left:-50px;bottom:20px;width:180px;opacity:.05;transform:rotate(-15deg);" viewBox="0 0 120 150"><use href="#payung-geulis"/></svg>
-        
-        <div class="page-header-inner fade-up">
-            <div class="breadcrumb">
-                <a href="{{ url('/') }}">Beranda</a>
-                <span>/</span>
-                <span class="current">Kontak</span>
-            </div>
-            <h1 class="page-title">Hubungi Kami</h1>
-            <p class="page-subtitle">Punya pertanyaan seputar KAMMI, kaderisasi, atau ingin berkolaborasi? Kami siap mendengar aspirasi dan masukan Anda.</p>
-        </div>
-    </div>
+    <x-page-header 
+        title="Hubungi Kami" 
+        subtitle="Punya pertanyaan seputar KAMMI, kaderisasi, atau ingin berkolaborasi? Kami siap mendengar aspirasi dan masukan Anda."
+        :breadcrumb="['Kontak' => route('kontak.index')]"
+    />
 
     <div class="section" style="background: var(--krem);">
         <div class="section-inner">

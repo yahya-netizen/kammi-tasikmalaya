@@ -2,20 +2,11 @@
     <x-slot name="title">Kaderisasi — Daurah Marhalah KAMMI Tasikmalaya</x-slot>
 
     {{-- PAGE HEADER --}}
-    <div class="page-header">
-        <svg style="position:absolute;right:-50px;top:20px;width:240px;opacity:.05;transform:rotate(15deg);" viewBox="0 0 120 150"><use href="#payung-geulis"/></svg>
-        <svg style="position:absolute;left:-50px;bottom:20px;width:180px;opacity:.05;transform:rotate(-15deg);" viewBox="0 0 120 150"><use href="#payung-geulis"/></svg>
-        
-        <div class="page-header-inner fade-up">
-            <div class="breadcrumb">
-                <a href="{{ url('/') }}">Beranda</a>
-                <span>/</span>
-                <span class="current">Kaderisasi</span>
-            </div>
-            <h1 class="page-title">Daurah Marhalah</h1>
-            <p class="page-subtitle">Program kaderisasi berjenjang KAMMI Daerah Tasikmalaya — DM I, DM II, dan DM III sebagai pondasi pembentukan karakter Muslim Negarawan.</p>
-        </div>
-    </div>
+    <x-page-header 
+        title="Daurah Marhalah" 
+        subtitle="Program kaderisasi berjenjang KAMMI Daerah Tasikmalaya — DM I, DM II, dan DM III sebagai pondasi pembentukan karakter Muslim Negarawan."
+        :breadcrumb="['Kaderisasi' => route('kaderisasi.index')]"
+    />
 
     <div class="section" style="background: var(--krem);">
         <div class="section-inner">

@@ -2,20 +2,11 @@
     <x-slot name="title">BKM — Biro Kemuslimahan KAMMI Tasikmalaya</x-slot>
 
     {{-- PAGE HEADER --}}
-    <div class="page-header">
-        <svg style="position:absolute;right:-50px;top:20px;width:240px;opacity:.05;transform:rotate(15deg);" viewBox="0 0 120 150"><use href="#payung-geulis"/></svg>
-        <svg style="position:absolute;left:-50px;bottom:20px;width:180px;opacity:.05;transform:rotate(-15deg);" viewBox="0 0 120 150"><use href="#payung-geulis"/></svg>
-        
-        <div class="page-header-inner fade-up">
-            <div class="breadcrumb">
-                <a href="{{ url('/') }}">Beranda</a>
-                <span>/</span>
-                <span class="current">BKM</span>
-            </div>
-            <h1 class="page-title">Biro Kemuslimahan</h1>
-            <p class="page-subtitle">Divisi khusus yang menaungi, memberdayakan, dan menggerakkan potensi kader akhwat KAMMI Daerah Tasikmalaya.</p>
-        </div>
-    </div>
+    <x-page-header 
+        title="Biro Kemuslimahan" 
+        subtitle="Divisi khusus yang menaungi, memberdayakan, dan menggerakkan potensi kader akhwat KAMMI Daerah Tasikmalaya."
+        :breadcrumb="['BKM' => route('bkm.index')]"
+    />
 
     <div class="section" style="background: var(--krem);">
         <div class="section-inner">

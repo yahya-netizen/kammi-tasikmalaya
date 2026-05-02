@@ -101,26 +101,28 @@
 
         /* ===== PAGE HEADER (Reusable) ===== */
         .page-header { 
-            background: var(--merah-tua); padding: 140px 2.5rem 80px; position: relative; overflow: hidden; 
+            background: #fef3c7; 
+            padding: 120px 2.5rem 60px; 
+            position: relative; 
+            overflow: hidden; 
             text-align: center;
         }
         .page-header::before { 
-            content:''; position:absolute; inset:0; 
-            background-image: repeating-linear-gradient(135deg,rgba(201,168,76,.03) 0,rgba(201,168,76,.03) 1px,transparent 1px,transparent 30px);
+            content: none;
         }
         .page-header::after {
-            content:''; position:absolute; bottom:0; left:0; right:0; height:80px;
-            background: linear-gradient(to top, var(--krem), transparent);
+            content:''; position:absolute; bottom:0; left:0; right:0; height:60px;
+            background: linear-gradient(to top, var(--krem) 0%, transparent 100%);
         }
         .page-header-inner { max-width: 800px; margin: 0 auto; position: relative; z-index: 5; }
-        .page-title { color: white; font-size: clamp(2.2rem, 4.5vw, 3.5rem); margin-bottom: 16px; line-height: 1.1; }
-        .page-subtitle { color: rgba(255,255,255,0.7); font-size: 16px; max-width: 600px; margin: 0 auto; line-height: 1.8; }
+        .page-title { color: var(--merah-tua); font-size: clamp(2.2rem, 4.5vw, 3.5rem); margin-bottom: 16px; line-height: 1.1; }
+        .page-subtitle { color: var(--teks-secondary); font-size: 16px; max-width: 600px; margin: 0 auto; line-height: 1.8; opacity: 0.9; }
         
         .breadcrumb { display: flex; justify-content: center; align-items: center; gap: 10px; margin-bottom: 24px; font-size: 11px; text-transform: uppercase; letter-spacing: 0.15em; font-weight: 600; }
-        .breadcrumb a { color: var(--emas); text-decoration: none; transition: color 0.2s; }
-        .breadcrumb a:hover { color: white; }
-        .breadcrumb span { color: rgba(255,255,255,0.2); }
-        .breadcrumb .current { color: rgba(255,255,255,0.5); }
+        .breadcrumb a { color: var(--merah-tua); text-decoration: none; transition: all 0.2s; opacity: 0.7; }
+        .breadcrumb a:hover { color: var(--merah); opacity: 1; transform: translateY(-1px); }
+        .breadcrumb span { color: rgba(139,0,0,0.2); }
+        .breadcrumb .current { color: var(--merah-tua); font-weight: 700; }
 
         /* ===== NAVBAR ===== */
         .nav-publik {

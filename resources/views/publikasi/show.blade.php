@@ -55,19 +55,13 @@
     </x-slot>
 
     {{-- PAGE HEADER --}}
-    <div class="page-header">
-        <svg style="position:absolute;right:-30px;top:10px;width:120px;opacity:.08;transform:rotate(15deg);" viewBox="0 0 120 150" xmlns="http://www.w3.org/2000/svg"><use href="#payung-geulis"/></svg>
-        <div class="page-header-inner">
-            <div class="breadcrumb">
-                <a href="{{ url('/') }}">Beranda</a>
-                <span class="breadcrumb-sep">›</span>
-                <a href="{{ route('publikasi.index') }}">Berita & Publikasi</a>
-                <span class="breadcrumb-sep">›</span>
-                <span>{{ Str::limit($publikasi->judul, 40) }}</span>
-            </div>
-            <h1>{{ Str::limit($publikasi->judul, 60) }}</h1>
-        </div>
-    </div>
+    <x-page-header 
+        :title="Str::limit($publikasi->judul, 60)" 
+        :breadcrumb="[
+            'Berita & Publikasi' => route('publikasi.index'),
+            Str::limit($publikasi->judul, 40) => request()->url()
+        ]"
+    />
 
     <div class="sec">
         <div class="inner">

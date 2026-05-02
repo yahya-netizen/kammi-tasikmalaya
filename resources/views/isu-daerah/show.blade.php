@@ -46,19 +46,13 @@
     </x-slot>
 
     {{-- PAGE HEADER --}}
-    <div class="page-header">
-        <svg style="position:absolute;right:-30px;top:10px;width:120px;opacity:.08;transform:rotate(15deg);" viewBox="0 0 120 150" xmlns="http://www.w3.org/2000/svg"><use href="#payung-geulis"/></svg>
-        <div class="page-header-inner">
-            <div class="breadcrumb">
-                <a href="{{ url('/') }}">Beranda</a>
-                <span class="breadcrumb-sep">›</span>
-                <a href="{{ route('isu-daerah.index') }}">Isu Daerah</a>
-                <span class="breadcrumb-sep">›</span>
-                <span>{{ Str::limit($isuDaerah->judul, 40) }}</span>
-            </div>
-            <h1>{{ $isuDaerah->judul }}</h1>
-        </div>
-    </div>
+    <x-page-header 
+        :title="Str::limit($isuDaerah->judul, 60)" 
+        :breadcrumb="[
+            'Isu Daerah' => route('isu-daerah.index'),
+            Str::limit($isuDaerah->judul, 40) => request()->url()
+        ]"
+    />
 
     <div class="sec">
         <div class="inner">

@@ -36,18 +36,13 @@
     </style>
     </x-slot>
 
-    <div class="page-header">
-        <div class="page-header-inner">
-            <div class="breadcrumb">
-                <a href="{{ url('/') }}">Beranda</a>
-                <span class="breadcrumb-sep">›</span>
-                <a href="{{ route('komisariat.index') }}">Komisariat</a>
-                <span class="breadcrumb-sep">›</span>
-                <span>{{ $komisariat->nama }}</span>
-            </div>
-            <h1>Profil Komisariat</h1>
-        </div>
-    </div>
+    <x-page-header 
+        title="Profil Komisariat" 
+        :breadcrumb="[
+            'Komisariat' => route('komisariat.index'),
+            $komisariat->nama => request()->url()
+        ]"
+    />
 
     <div class="sec">
         <div class="inner">
