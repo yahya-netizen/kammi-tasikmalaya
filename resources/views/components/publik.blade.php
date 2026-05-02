@@ -6,14 +6,24 @@
     if ($description) SEO::setDescription($description);
 
     // Image SEO (Fallback ke Favicon jika tidak ada)
-    $seoImage = $image ?? asset('favicon.ico');
+    $seoImage = $image;
+    
+    // Jika image tidak diawali http, bungkus dengan url() untuk jadi absolute
+    if ($seoImage && !str_starts_with($seoImage, 'http')) {
+        $seoImage = url($seoImage);
+    }
+    
+    $seoImage = $seoImage ?? asset('favicon.ico');
+    
     SEO::opengraph()->addImage($seoImage);
     SEO::twitter()->setImage($seoImage);
     SEO::twitter()->setType('summary_large_image'); // Membuat gambar jadi besar
 
     // JSON-LD (Schema.org) untuk Google
     SEO::jsonLd()->setTitle($title ?? SEO::getTitle());
-    SEO::jsonLd()->setDescription($description ?? SEO::getDescription());
+    if ($description) {
+        SEO::jsonLd()->setDescription($description);
+    }
     SEO::jsonLd()->addImage($seoImage);
     SEO::jsonLd()->setType('WebPage');
 @endphp
