@@ -127,7 +127,7 @@
                 <div class="form-title">Data Diri Pendaftar</div>
                 <div class="form-subtitle">Pastikan data yang kamu isi sudah benar. Panitia akan menghubungi melalui nomor HP yang didaftarkan.</div>
 
-                <form method="POST" action="{{ route('kaderisasi.simpan', $daurahMarhalah) }}">
+                <form method="POST" action="{{ route('kaderisasi.simpan', [$daurahMarhalah->slug, $daurahMarhalah->token]) }}">
                     @csrf
                     <div class="form-grid">
 

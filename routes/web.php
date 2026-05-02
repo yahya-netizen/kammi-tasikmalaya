@@ -33,8 +33,15 @@ Route::get('/isu-daerah/{isuDaerah}', [IsuDaerahController::class, 'show'])->nam
 
 // Kaderisasi
 Route::get('/kaderisasi', [KaderisasiController::class, 'index'])->name('kaderisasi.index');
-Route::get('/kaderisasi/{daurahMarhalah}/daftar', [KaderisasiController::class, 'daftar'])->name('kaderisasi.daftar');
-Route::post('/kaderisasi/{daurahMarhalah}/daftar', [KaderisasiController::class, 'simpan'])->name('kaderisasi.simpan');
+Route::get('/kaderisasi/{slug}-{token}/daftar', [KaderisasiController::class, 'daftar'])
+    ->where('slug', '[A-Za-z0-9-]+')
+    ->where('token', '[A-Za-z0-9]{20}')
+    ->name('kaderisasi.daftar');
+Route::post('/kaderisasi/{slug}-{token}/daftar', [KaderisasiController::class, 'simpan'])
+    ->where('slug', '[A-Za-z0-9-]+')
+    ->where('token', '[A-Za-z0-9]{20}')
+    ->middleware('throttle:5,1')
+    ->name('kaderisasi.simpan');
 
 // Komisariat
 Route::get('/komisariat', [KomisariatController::class, 'index'])->name('komisariat.index');

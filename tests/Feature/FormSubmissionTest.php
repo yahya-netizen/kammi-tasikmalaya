@@ -56,7 +56,7 @@ test('kaderisasi registration can be submitted', function () {
         'status' => 'akan_datang',
     ]);
 
-    $response = $this->post("/kaderisasi/{$daurah->id}/daftar", [
+    $response = $this->post("/kaderisasi/{$daurah->slug}-{$daurah->token}/daftar", [
         'nama_lengkap' => 'Kader Baru',
         'nim' => '123456',
         'email' => 'kader@example.com',
@@ -88,7 +88,7 @@ test('DM2 registration requires DM1 graduation', function () {
         'status' => 'akan_datang',
     ]);
 
-    $response = $this->from("/kaderisasi/{$daurah->id}/daftar")->post("/kaderisasi/{$daurah->id}/daftar", [
+    $response = $this->from("/kaderisasi/{$daurah->slug}-{$daurah->token}/daftar")->post("/kaderisasi/{$daurah->slug}-{$daurah->token}/daftar", [
         'nama_lengkap' => 'Kader DM2',
         'nim' => '1234567',
         'email' => 'dm2candidate@example.com',
@@ -98,6 +98,6 @@ test('DM2 registration requires DM1 graduation', function () {
         'jenis_kelamin' => 'ikhwan',
     ]);
 
-    $response->assertRedirect("/kaderisasi/{$daurah->id}/daftar");
+    $response->assertRedirect("/kaderisasi/{$daurah->slug}-{$daurah->token}/daftar");
     $response->assertSessionHasErrors(['email']);
 });

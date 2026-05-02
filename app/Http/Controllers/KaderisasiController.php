@@ -18,16 +18,24 @@ class KaderisasiController extends Controller
         return view('kaderisasi.index', compact('daurahList'));
     }
 
-    public function daftar(DaurahMarhalah $daurahMarhalah)
+    public function daftar(string $slug, string $token)
     {
+        $daurahMarhalah = DaurahMarhalah::where('slug', $slug)
+            ->where('token', $token)
+            ->firstOrFail();
+
         $terisi    = $daurahMarhalah->pendaftarans()->whereNotIn('status', ['ditolak'])->count();
         $sisaKuota = $daurahMarhalah->kuota - $terisi;
 
         return view('kaderisasi.daftar', compact('daurahMarhalah', 'sisaKuota'));
     }
 
-    public function simpan(Request $request, DaurahMarhalah $daurahMarhalah)
+    public function simpan(Request $request, string $slug, string $token)
     {
+        $daurahMarhalah = DaurahMarhalah::where('slug', $slug)
+            ->where('token', $token)
+            ->firstOrFail();
+
         $validated = $request->validate([
             'nama_lengkap'  => 'required|string|max:255',
             'nim'           => 'required|string|max:50',
@@ -37,6 +45,21 @@ class KaderisasiController extends Controller
             'kampus'        => 'required|string|max:255',
             'jenis_kelamin' => 'required|in:ikhwan,akhwat',
         ]);
+
+        // Validasi kuota
+        $terisi = $daurahMarhalah->pendaftarans()->whereNotIn('status', ['ditolak'])->count();
+        if ($terisi >= $daurahMarhalah->kuota) {
+            return back()->withErrors(['kuota' => 'Kuota pendaftaran sudah penuh.'])->withInput();
+        }
+
+        // Cek duplikasi pendaftaran untuk DM yang sama
+        $exists = PendaftaranDm::where('email', $validated['email'])
+            ->where('daurah_marhalah_id', $daurahMarhalah->id)
+            ->exists();
+
+        if ($exists) {
+            return back()->withErrors(['email' => 'Email ini sudah terdaftar untuk DM ini.'])->withInput();
+        }
 
         // Cek prasyarat DM2 harus lulus DM1
         if ($daurahMarhalah->level === 'DM2') {

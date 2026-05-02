@@ -120,7 +120,7 @@
                                         @if($penuh)
                                             <span class="btn-outline" style="border-color:#d1d5db; color:#9ca3af; pointer-events:none;">Kuota Penuh</span>
                                         @else
-                                            <a href="{{ route('kaderisasi.daftar', $dm) }}" class="btn-merah">Daftar Sekarang</a>
+                                            <a href="{{ route('kaderisasi.daftar', [$dm->slug, $dm->token]) }}" class="btn-merah">Daftar Sekarang</a>
                                         @endif
                                     </div>
                                 </div>
