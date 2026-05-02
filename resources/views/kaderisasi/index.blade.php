@@ -23,7 +23,7 @@
                             <div style="font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:0.05em; color:var(--teks-secondary); margin-bottom:12px;">Syarat Peserta</div>
                             <ul style="list-style:none; padding:0; font-size:13px; color:var(--teks-secondary);">
                                 <li style="margin-bottom:6px; display:flex; gap:8px;"><span style="color:var(--emas);">✓</span> Mahasiswa aktif di kampus Tasikmalaya</li>
-                                <li style="margin-bottom:6px; display:flex; gap:8px;"><span style="color:var(--emas);">✓</span> Muslim/muslimah bersedia ikut full</li>
+                                <li style="margin-bottom:6px; display:flex; gap:8px;"><span style="color:var(--emas);">✓</span> Muslim/muslimah bersedia mengikuti kegiatan sampai selesai</li>
                                 <li style="display:flex; gap:8px;"><span style="color:var(--emas);">✓</span> Mengisi formulir pendaftaran</li>
                             </ul>
                         </div>
@@ -95,6 +95,12 @@
                                             @endif
                                         </div>
                                         <h3 style="font-size:18px; font-weight:700; color:var(--teks); margin-bottom:8px;">{{ $dm->nama }}</h3>
+
+                                        {{-- Deskripsi DM --}}
+                                        @if($dm->deskripsi)
+                                        <p style="font-size:14px; color:var(--teks-secondary); margin-bottom:12px; line-height:1.6;">{{ $dm->deskripsi }}</p>
+                                        @endif
+
                                         <div style="display:flex; gap:16px; font-size:13px; color:var(--teks-secondary);">
                                             @if($dm->lokasi)
                                             <span style="display:flex; align-items:center; gap:6px;">
