@@ -14,9 +14,11 @@ class ProfilController extends Controller
 
     public function update(Request $request)
     {
+        $user = $request->user();
+
         $validated = $request->validate([
             'name'           => 'required|string|max:255',
-            'email'          => 'required|email|unique:users,email,' . Auth::id(),
+            'email'          => 'required|email|unique:users,email,' . $user->id,
             'no_hp'          => 'nullable|string|max:20',
             'tanggal_lahir'  => 'nullable|date',
             'alamat'         => 'nullable|string',
@@ -25,8 +27,31 @@ class ProfilController extends Controller
             'jurusan'        => 'nullable|string|max:255',
         ]);
 
-        Auth::user()->update($validated);
+        if ($user->email !== $validated['email']) {
+            $user->email_verified_at = null;
+        }
+
+        $user->fill($validated);
+        $user->save();
 
         return back()->with('success', 'Profil dan biodata berhasil diperbarui.');
+    }
+
+    public function destroy(Request $request)
+    {
+        $request->validateWithBag('userDeletion', [
+            'password' => ['required', 'current_password'],
+        ]);
+
+        $user = $request->user();
+
+        Auth::logout();
+
+        $user->delete();
+
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+
+        return redirect('/');
     }
 }

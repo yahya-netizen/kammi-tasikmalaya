@@ -10,11 +10,11 @@ return [
          * The default configurations to be used by the meta generator.
          */
         'defaults'       => [
-            'title'        => "KAMMI Tasikmalaya", // set false to total remove
+            'title'        => "KAMMI Daerah Tasikmalaya", // set false to total remove
             'titleBefore'  => false, // Put defaults.title before page title, like 'It's Over 9000! - Dashboard'
-            'description'  => 'Situs resmi Kesatuan Aksi Mahasiswa Muslim Indonesia Daerah Tasikmalaya', // set false to total remove
+            'description'  => 'Website Resmi Kesatuan Aksi Mahasiswa Muslim Indonesia (KAMMI) Daerah Tasikmalaya — Priangan Timur.', // set false to total remove
             'separator'    => ' - ',
-            'keywords'     => ['kammi', 'tasikmalaya', 'mahasiswa', 'muslim', 'pergerakan'],
+            'keywords'     => ['kammi', 'tasikmalaya', 'mahasiswa', 'muslim', 'pergerakan', 'daurah marhalah', 'kaderisasi'],
             'canonical'    => 'current', // Set to null or 'full' to use Url::full(), set to 'current' to use Url::current(), set false to total remove
             'robots'       => 'all', // Set to 'all', 'none' or any combination of index/noindex and follow/nofollow
         ],
@@ -37,12 +37,12 @@ return [
          * The default configurations to be used by the opengraph generator.
          */
         'defaults' => [
-            'title'       => 'KAMMI Tasikmalaya', // set false to total remove
+            'title'       => 'KAMMI Daerah Tasikmalaya', // set false to total remove
             'description' => 'Situs resmi Kesatuan Aksi Mahasiswa Muslim Indonesia Daerah Tasikmalaya', // set false to total remove
-            'url'         => 'https://kammitasik.com', // Set null for using Url::current(), set false to total remove
+            'url'         => null, // Set null for using Url::current(), set false to total remove
             'type'        => 'website',
-            'site_name'   => 'kammitasik.com',
-            'images'      => [],
+            'site_name'   => 'KAMMI Tasikmalaya',
+            'images'      => [env('APP_URL').'/images/logo-share.png'],
         ],
     ],
     'twitter' => [

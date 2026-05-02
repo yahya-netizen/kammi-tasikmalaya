@@ -13,10 +13,15 @@ use App\Http\Controllers\TentangController;
 use App\Http\Controllers\ProfilController;
 use App\Http\Controllers\Auth\GoogleController;
 
+use App\Http\Controllers\GalleryController;
+
 // -----------------------------------------------
 // HALAMAN PUBLIK
 // -----------------------------------------------
 Route::get('/', [HomeController::class, 'index'])->name('home');
+
+// Galeri
+Route::get('/galeri', [GalleryController::class, 'index'])->name('gallery.index');
 
 // Berita
 Route::get('/publikasi', [PublikasiController::class, 'index'])->name('publikasi.index');
@@ -68,6 +73,7 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/profil',    [ProfilController::class, 'index'])->name('profil.index');
     Route::patch('/profil',  [ProfilController::class, 'update'])->name('profil.update');
+    Route::delete('/profil', [ProfilController::class, 'destroy'])->name('profil.destroy');
 });
 
 // -----------------------------------------------

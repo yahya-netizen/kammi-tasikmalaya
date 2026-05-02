@@ -7,16 +7,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     
-    <title>{{ $title ?? 'KAMMI Daerah Tasikmalaya' }}</title>
-    <meta name="description" content="{{ $description ?? 'Website Resmi KAMMI Daerah Tasikmalaya — Kesatuan Aksi Mahasiswa Muslim Indonesia Priangan Timur' }}">
-    
-    <meta property="og:title" content="{{ $title ?? 'KAMMI Daerah Tasikmalaya' }}">
-    <meta property="og:description" content="{{ $description ?? 'Website Resmi KAMMI Daerah Tasikmalaya' }}">
+    {!! SEO::generate() !!}
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,600&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
     
     @vite(['resources/css/app.css', 'resources/js/app.js'])
+    
+    @yield('styles')
+    {!! $styles ?? '' !!}
     
     <style>
         :root {
@@ -310,6 +309,8 @@
 
         <a href="{{ route('bkm.index') }}" class="{{ request()->is('bkm*') ? 'aktif' : '' }}">BKM</a>
 
+        <a href="{{ route('gallery.index') }}" class="{{ request()->routeIs('gallery.index') ? 'aktif' : '' }}">Galeri</a>
+
         <div class="nav-dropdown" id="drop-tentang">
             <div class="nav-dropdown-trigger {{ request()->is('tentang*') ? 'aktif' : '' }}" onclick="toggleDrop('drop-tentang', event)">
                 Tentang KAMMI <svg width="10" height="10" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg>
@@ -375,7 +376,13 @@
     </div>
 </nav>
 
-<div class="page-wrap">{{ $slot }}</div>
+<div class="page-wrap">
+    @if(isset($slot) && $slot->isNotEmpty())
+        {{ $slot }}
+    @else
+        @yield('content')
+    @endif
+</div>
 
 <footer class="footer-publik">
     <div class="footer-inner section-inner">
@@ -392,6 +399,7 @@
                     <li><a href="{{ route('kaderisasi.index') }}">Informasi Kaderisasi</a></li>
                     <li><a href="{{ route('publikasi.index') }}">Berita & Publikasi</a></li>
                     <li><a href="{{ route('isu-daerah.index') }}">Advokasi Isu Daerah</a></li>
+                    <li><a href="{{ route('gallery.index') }}">Galeri Foto</a></li>
                 </ul>
             </div>
             <div class="footer-col">
@@ -452,6 +460,7 @@ const obs = new IntersectionObserver(entries => {
 }, { threshold: 0.1 });
 document.querySelectorAll('.fade-up').forEach(el => obs.observe(el));
 </script>
-{!! $scripts !!}
+@yield('scripts')
+{!! $scripts ?? '' !!}
 </body>
 </html>

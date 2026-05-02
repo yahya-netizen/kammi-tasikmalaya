@@ -9,12 +9,35 @@ use Illuminate\Notifications\Notifiable;
 use Filament\Models\Contracts\FilamentUser;
 use Filament\Panel;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash; // Tambahkan ini
+use Illuminate\Support\Facades\Hash;
+use PHPOpenSourceSaver\JWTAuth\Contracts\JWTSubject;
 
-class User extends Authenticatable implements FilamentUser
+class User extends Authenticatable implements FilamentUser, JWTSubject
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory, Notifiable;
+
+    /**
+     * Get the identifier that will be stored in the subject claim of the JWT.
+     *
+     * @return mixed
+     */
+    public function getJWTIdentifier()
+    {
+        return $this->getKey();
+    }
+
+    /**
+     * Return a key value array, containing any custom claims to be added to the JWT.
+     *
+     * @return array
+     */
+    public function getJWTCustomClaims()
+    {
+        return [
+            'role' => $this->role,
+        ];
+    }
 
     /**
      * Determine if the user can access the Filament admin panel.
@@ -36,6 +59,12 @@ class User extends Authenticatable implements FilamentUser
         'google_id', // Pastikan ini sudah ada di DB
         'avatar',    // Pastikan ini sudah ada di DB
         'password',
+        'no_hp',
+        'tanggal_lahir',
+        'alamat',
+        'universitas',
+        'fakultas',
+        'jurusan',
     ];
 
     /**
