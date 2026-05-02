@@ -9,6 +9,7 @@
     $seoImage = $image ?? asset('favicon.ico');
     SEO::opengraph()->addImage($seoImage);
     SEO::twitter()->setImage($seoImage);
+    SEO::twitter()->setCard('summary_large_image'); // Membuat gambar jadi besar
 
     // JSON-LD (Schema.org) untuk Google
     SEO::jsonLd()->setTitle($title ?? SEO::getTitle());
