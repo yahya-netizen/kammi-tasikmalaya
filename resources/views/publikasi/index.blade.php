@@ -1,5 +1,6 @@
 <x-publik>
     <x-slot name="title">Berita & Publikasi — KAMMI Daerah Tasikmalaya</x-slot>
+    <x-slot name="description">Baca berita terbaru, opini, dan laporan kegiatan KAMMI Daerah Tasikmalaya.</x-slot>
 
     {{-- PAGE HEADER --}}
     <x-page-header 

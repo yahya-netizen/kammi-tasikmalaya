@@ -1,5 +1,6 @@
 <x-publik>
     <x-slot name="title">{{ $komisariat->nama }} — KAMMI Tasikmalaya</x-slot>
+    <x-slot name="image">{{ $komisariat->foto ? Storage::url($komisariat->foto) : null }}</x-slot>
 
     <x-slot name="styles">
     <style>

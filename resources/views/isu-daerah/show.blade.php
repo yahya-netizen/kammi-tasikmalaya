@@ -1,6 +1,7 @@
 <x-publik>
     <x-slot name="title">{{ $isuDaerah->judul }} — KAMMI Daerah Tasikmalaya</x-slot>
     <x-slot name="description">{{ Str::limit($isuDaerah->deskripsi, 160) }}</x-slot>
+    <x-slot name="image">{{ $isuDaerah->gambar ? Storage::url($isuDaerah->gambar) : null }}</x-slot>
 
     <x-slot name="styles">
     <style>

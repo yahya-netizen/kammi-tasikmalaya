@@ -1,4 +1,21 @@
-@props(['title' => null, 'description' => null, 'styles' => null, 'scripts' => null])
+@props(['title' => null, 'description' => null, 'image' => null, 'styles' => null, 'scripts' => null])
+
+@php
+    // Judul & Deskripsi
+    if ($title) SEO::setTitle($title);
+    if ($description) SEO::setDescription($description);
+
+    // Image SEO (Fallback ke Favicon jika tidak ada)
+    $seoImage = $image ?? asset('favicon.ico');
+    SEO::opengraph()->addImage($seoImage);
+    SEO::twitter()->setImage($seoImage);
+
+    // JSON-LD (Schema.org) untuk Google
+    SEO::jsonLd()->setTitle($title ?? SEO::getTitle());
+    SEO::jsonLd()->setDescription($description ?? SEO::getDescription());
+    SEO::jsonLd()->addImage($seoImage);
+    SEO::jsonLd()->setType('WebPage');
+@endphp
 
 <!DOCTYPE html>
 <html lang="id">

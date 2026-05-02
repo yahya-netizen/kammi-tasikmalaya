@@ -1,6 +1,7 @@
 <x-publik>
     <x-slot name="title">{{ $publikasi->judul }} — KAMMI Daerah Tasikmalaya</x-slot>
     <x-slot name="description">{{ Str::limit($publikasi->ringkasan ?? strip_tags($publikasi->isi), 160) }}</x-slot>
+    <x-slot name="image">{{ $publikasi->gambar ? Storage::url($publikasi->gambar) : null }}</x-slot>
 
     <x-slot name="styles">
     <style>

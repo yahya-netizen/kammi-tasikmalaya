@@ -1,5 +1,6 @@
 <x-publik>
     <x-slot name="title">Kaderisasi — Daurah Marhalah KAMMI Tasikmalaya</x-slot>
+    <x-slot name="description">Ikuti Daurah Marhalah KAMMI Daerah Tasikmalaya. Jenjang kaderisasi Muslim Negarawan untuk mahasiswa muslim di Priangan Timur.</x-slot>
 
     {{-- PAGE HEADER --}}
     <x-page-header 

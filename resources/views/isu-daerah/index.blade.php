@@ -1,5 +1,6 @@
 <x-publik>
     <x-slot name="title">Isu Daerah — KAMMI Daerah Tasikmalaya</x-slot>
+    <x-slot name="description">Pantau dan advokasi isu-isu publik strategis di Tasikmalaya dan Priangan Timur bersama KAMMI.</x-slot>
 
     {{-- PAGE HEADER --}}
     <x-page-header 

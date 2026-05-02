@@ -1,5 +1,6 @@
 <x-publik>
     <x-slot name="title">KAMMI Daerah Tasikmalaya — Gerakan Mahasiswa Muslim Priangan Timur</x-slot>
+    <x-slot name="description">Website resmi Kesatuan Aksi Mahasiswa Muslim Indonesia (KAMMI) Daerah Tasikmalaya. Wadah perjuangan mahasiswa muslim di Priangan Timur.</x-slot>
 
     <x-slot name="styles">
     <style>
