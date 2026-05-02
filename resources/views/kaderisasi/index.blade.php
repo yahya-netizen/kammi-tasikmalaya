@@ -116,11 +116,16 @@
                                     </div>
 
                                     {{-- CTA --}}
+                                    @php
+                                        $hasKaderisasiLink = filled($dm->slug) && filled($dm->token);
+                                    @endphp
                                     <div>
                                         @if($penuh)
                                             <span class="btn-outline" style="border-color:#d1d5db; color:#9ca3af; pointer-events:none;">Kuota Penuh</span>
+                                        @elseif($hasKaderisasiLink)
+                                            <a href="{{ route('kaderisasi.daftar', ['slug' => $dm->slug, 'token' => $dm->token]) }}" class="btn-merah">Daftar Sekarang</a>
                                         @else
-                                            <a href="{{ route('kaderisasi.daftar', [$dm->slug, $dm->token]) }}" class="btn-merah">Daftar Sekarang</a>
+                                            <span class="btn-outline" style="border-color:#d1d5db; color:#9ca3af; pointer-events:none;">Pendaftaran tidak tersedia</span>
                                         @endif
                                     </div>
                                 </div>
